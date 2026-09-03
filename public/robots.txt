@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://xikseguros.com.br/sitemap.xml

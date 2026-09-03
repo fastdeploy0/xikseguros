@@ -1,0 +1,48 @@
+node_modules
+dist
+dist-ssr
+*.local
+
+# QA artefacts produced by the scripts in /scripts
+_shots
+
+# Internal handoff / briefing / impeccable status (not required for deploy)
+HANDOFF_OPUS.md
+PRODUCT.md
+DESIGN.md
+
+# Raw source assets (processed output lives in src/assets and public/)
+postblog/
+source_assets/
+assets-source/
+
+# Stray files at repo root
+sul-america.webp
+
+# Editor
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+
+# Cursor agent skills (large; rules in .cursor/rules are kept)
+.cursor/skills/
+.cursor/agents/
+
+# impeccable-ignore-start
+.impeccable/config.local.json
+.impeccable/hook.cache.json
+.impeccable/hook.pending.json
+.impeccable/*.png
+.impeccable/live/server.json
+.impeccable/live/sessions/
+.impeccable/live/previews/
+.impeccable/live/annotations/
+.impeccable/live/cache/
+.impeccable/live/manual-edit-apply-transaction.json
+.impeccable/live/manual-edit-events.jsonl
+.impeccable/live/manual-edit-evidence/
+.impeccable/live/pending-manual-edits.json
+.impeccable/live/deferred-svelte-component-accepts.json
+.impeccable/live/*.png
+# impeccable-ignore-end

@@ -1,0 +1,38 @@
+---
+description: Regras permanentes/invioláveis do projeto XIK SEGUROS: baseline, stack, dados e WhatsApp
+alwaysApply: true
+---
+
+# XIK SEGUROS: regras invioláveis
+
+## Ordem de precedência
+
+código existente funcionando → `HANDOFF_OPUS.md` → briefing original → tarefa atual.
+
+Não reprojete, substitua ou reorganize arquitetura, design system, routing, data layer ou componentes estruturais só por preferência. Preserve a implementação atual. Altere fundamentos somente se a tarefa exigir ou houver defeito verificável: explique antes.
+
+Antes de editar: inspecione arquivos relacionados e dependências. Não recrie o que já existe.
+
+## Stack obrigatória
+
+Vite + React + TypeScript + React Router (`BrowserRouter`, URLs limpas) + Tailwind CSS v4 + Lucide React + Motion (moderado) + React Hook Form + Zod. Sem Next.js, WordPress, Bootstrap, MUI, jQuery, Font Awesome ou emoji como ícones. Sem backend.
+
+## Dados e anti-alucinação
+
+Fonte de verdade: site oficial da Xik. Digital Signs é só benchmark de acabamento: nunca de marca ou conteúdo.
+
+Proibido inventar: telefone, WhatsApp, e-mail, endereço, CNPJ, horário, métricas, depoimentos, coberturas, preços, planos, condições. Campo ausente → `null` / omitir UI / `TODO(content|integração|jurídico)` concreto. Nunca exibir `[DADO_PENDENTE]` ao visitante.
+
+Dados comerciais centralizados em `src/data/`. Sem hardcode comercial em JSX.
+
+## WhatsApp e formulário
+
+Número só em `public/config.js`, lido via `src/lib/runtime-config.ts`. Sem número → omitir CTAs WhatsApp. Formulário valida e pode abrir WhatsApp pré-preenchido; nunca simular “mensagem enviada”. Sem `href="#"`. Sem botão sem função.
+
+## Design system
+
+Tokens canônicos em `src/styles/globals.css` (`@theme`). Sem cores literais/hex espalhados em componentes. Respeitar `prefers-reduced-motion`.
+
+## SEO e rotas
+
+Preservar slugs existentes. Manter `legacyRoutes`. SEO por rota via `Seo`. Regenerar sitemap com `npm run sitemap` após mudar rotas.

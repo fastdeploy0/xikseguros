@@ -1,0 +1,32 @@
+---
+description: Proíbe travessão e traço longo em todo o projeto XIK SEGUROS
+alwaysApply: true
+---
+
+# Sem travessão
+
+## Caracteres proibidos
+
+Em **todo** o repositório (copy visitante, meta/SEO, comentários, docs e regras):
+
+- travessão (Unicode U+2014)
+- traço médio (Unicode U+2013)
+- demais traços tipográficos longos (U+2012, U+2015)
+
+Nestes arquivos de regra, não escreva esses glifos; cite apenas o code point.
+
+## Permitido
+
+- hífen ASCII `-` em código, slugs, CSS, caminhos e compostos gramaticais necessários (`pré-preenchido`, `planos-de-saude`)
+
+## Substituições
+
+Use vírgula, dois-pontos, ponto ou reformule a frase. Exemplos:
+
+- errado: `proteção` + U+2014 + ` para pessoas`
+- certo: `proteção, para pessoas` ou `proteção: para pessoas`
+
+- errado: `ANS` + U+2014 + ` Portabilidade`
+- certo: `ANS: Portabilidade`
+
+Não reintroduza travessão ao editar ou gerar conteúdo.

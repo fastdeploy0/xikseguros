@@ -1,0 +1,10 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [
+      "src/styles/globals.css",
+      "src/components/sections/FaqSection.tsx"
+    ],
+    "ignoreValues": []
+  }
+}
