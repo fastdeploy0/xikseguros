@@ -15,7 +15,7 @@ const routes = [
   ['home', '/'],
   ['a-empresa', '/a-empresa'],
   ['planos', '/planos'],
-  ['plano-individual', '/planos/plano-de-saude-individual'],
+  ['plano-empresarial', '/planos/planos-de-saude-empresarial'],
   ['seguros', '/seguros'],
   ['seguro-automovel', '/seguros/seguro-automovel'],
   ['cotacao', '/faca-sua-cotacao'],

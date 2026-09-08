@@ -17,6 +17,23 @@ export const quoteSchema = z.object({
     .min(1, 'Informe seu telefone.')
     .refine((value) => [10, 11].includes(digitsOnly(value).length),
       'Informe um telefone com DDD, por exemplo (31) 99999-9999.'),
+  /** CPF (11 digits) or CNPJ (14 digits), formatted or not. */
+  document: z
+    .string()
+    .trim()
+    .min(1, 'Informe o CPF ou CNPJ.')
+    .refine((value) => [11, 14].includes(digitsOnly(value).length),
+      'Informe um CPF (11 dígitos) ou CNPJ (14 dígitos).'),
+  /** Age of the insured / interested person. */
+  age: z
+    .string()
+    .trim()
+    .min(1, 'Informe a idade.')
+    .refine((value) => /^\d+$/.test(value), 'Informe apenas números.')
+    .refine((value) => {
+      const n = Number(value);
+      return n >= 1 && n <= 120;
+    }, 'Informe uma idade entre 1 e 120.'),
   subject: z
     .string()
     .refine((value) => quoteSubjects.includes(value), 'Selecione a modalidade de interesse.'),
@@ -69,6 +86,8 @@ export function buildQuoteMessage(
     '',
     `*Serviço de interesse:* ${values.subject}`,
     `*Nome:* ${values.name}`,
+    `*CPF/CNPJ:* ${values.document}`,
+    `*Idade:* ${values.age}`,
     `*Telefone:* ${values.phone}`,
     `*E-mail:* ${values.email}`,
   ];

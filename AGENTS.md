@@ -15,6 +15,7 @@ Não redesenhar a arquitetura, o design system, o routing, a data layer ou os co
 
 - Regras invioláveis sempre aplicadas: `.cursor/rules/xik-inviolable.mdc`
 - Sem travessão (sempre aplicada): `.cursor/rules/xik-no-emdash.mdc`
+- Sem regressão de design (sempre aplicada): `.cursor/rules/xik-no-design-regression.mdc`
 - Handoff completo (árvore, rotas, tokens, TODOs, validações): `HANDOFF_OPUS.md`
 - Overview operacional: `README.md`
 

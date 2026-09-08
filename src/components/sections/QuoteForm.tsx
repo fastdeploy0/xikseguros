@@ -1,8 +1,9 @@
 ﻿import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { MessageCircle, ShieldCheck } from 'lucide-react';
+import { ExternalLink, MessageCircle, ShieldCheck } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { company } from '@/data/company';
+import { externalQuoteUrlForSubject } from '@/data/external-quotes';
 import { healthPlans, insurances } from '@/data/services';
 import { buildWhatsappUrl, hasWhatsapp } from '@/lib/runtime-config';
 import {
@@ -29,10 +30,11 @@ type QuoteFormProps = {
  *
  * This project has no backend, so the form NEVER claims to have sent anything.
  * It validates the data client-side and then hands the visitor over to WhatsApp
- * with the information pre-filled: an action described as exactly that.
+ * (pre-filled) or to a partner quote URL when the modality has one configured.
  */
 export function QuoteForm({ defaultSubject, sourceLabel, className }: QuoteFormProps) {
   const [handedOff, setHandedOff] = useState(false);
+  const [subject, setSubject] = useState(defaultSubject ?? '');
   const whatsappAvailable = hasWhatsapp();
   const { pathname } = useLocation();
 
@@ -46,14 +48,27 @@ export function QuoteForm({ defaultSubject, sourceLabel, className }: QuoteFormP
       name: '',
       email: '',
       phone: '',
+      document: '',
+      age: '',
       subject: defaultSubject ?? '',
       message: '',
     },
   });
 
+  const partnerQuoteUrl = externalQuoteUrlForSubject(subject);
+  const usesPartnerQuote = Boolean(partnerQuoteUrl);
+  const canHandoff = usesPartnerQuote || whatsappAvailable;
+
   const onSubmit = handleSubmit((raw) => {
     const parsed = quoteSchema.safeParse(raw);
     if (!parsed.success) return;
+
+    const handoffUrl = externalQuoteUrlForSubject(parsed.data.subject);
+    if (handoffUrl) {
+      window.open(handoffUrl, '_blank', 'noopener,noreferrer');
+      setHandedOff(true);
+      return;
+    }
 
     const url = buildWhatsappUrl(
       buildQuoteMessage(parsed.data, {
@@ -79,8 +94,9 @@ export function QuoteForm({ defaultSubject, sourceLabel, className }: QuoteFormP
       <p id="cotacao-aviso" className="flex gap-3 rounded-md border border-border bg-surface-sunken p-4 text-sm text-text-muted">
         <ShieldCheck aria-hidden="true" className="mt-0.5 size-4.5 shrink-0 text-brand-secondary-600" />
         <span>
-          Ao continuar, seus dados são usados para abrir a conversa com um consultor da Xik pelo
-          WhatsApp. Nada é armazenado neste site. Veja a{' '}
+          {usesPartnerQuote
+            ? 'Ao continuar, você será direcionado ao ambiente de cotação da seguradora parceira. Revise os dados no formulário antes de seguir. Veja a '
+            : 'Ao continuar, seus dados são usados para abrir a conversa com um consultor da Xik pelo WhatsApp. Nada é armazenado neste site. Veja a '}
           <Link to="/politica-de-privacidade" className="font-semibold text-brand-primary underline underline-offset-4">
             Política de Privacidade
           </Link>
@@ -139,6 +155,52 @@ export function QuoteForm({ defaultSubject, sourceLabel, className }: QuoteFormP
         )}
       </Field>
 
+      <div className="grid gap-6 sm:grid-cols-2">
+        <Field
+          id="quote-document"
+          label="CNPJ / CPF"
+          required
+          hint="Pessoa física: CPF. Empresa: CNPJ."
+          error={errors.document?.message}
+        >
+          {({ id, describedBy, invalid }) => (
+            <input
+              id={id}
+              type="text"
+              inputMode="numeric"
+              autoComplete="off"
+              aria-invalid={invalid}
+              aria-describedby={describedBy}
+              placeholder="000.000.000-00 ou 00.000.000/0000-00"
+              className={inputClass(invalid)}
+              {...register('document', { validate: validateField('document') })}
+            />
+          )}
+        </Field>
+
+        <Field
+          id="quote-age"
+          label="Idade"
+          required
+          hint="Idade do segurado ou interessado."
+          error={errors.age?.message}
+        >
+          {({ id, describedBy, invalid }) => (
+            <input
+              id={id}
+              type="text"
+              inputMode="numeric"
+              autoComplete="off"
+              aria-invalid={invalid}
+              aria-describedby={describedBy}
+              placeholder="Ex.: 35"
+              className={inputClass(invalid)}
+              {...register('age', { validate: validateField('age') })}
+            />
+          )}
+        </Field>
+      </div>
+
       <Field
         id="quote-subject"
         label="Modalidade de interesse"
@@ -156,7 +218,10 @@ export function QuoteForm({ defaultSubject, sourceLabel, className }: QuoteFormP
                 "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%235a6478' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='m3 6 5 5 5-5'/%3E%3C/svg%3E\")",
               backgroundPosition: 'right 1rem center',
             }}
-            {...register('subject', { validate: validateField('subject') })}
+            {...register('subject', {
+              validate: validateField('subject'),
+              onChange: (event) => setSubject(event.target.value),
+            })}
           >
             <option value="">Selecione…</option>
             <optgroup label="Planos de saúde">
@@ -214,19 +279,27 @@ export function QuoteForm({ defaultSubject, sourceLabel, className }: QuoteFormP
         ) : null}
       </div>
 
-      {whatsappAvailable ? (
+      {canHandoff ? (
         <>
           <Button type="submit" size="lg" variant="primary" disabled={isSubmitting}>
             <span className="inline-flex items-center gap-2.5">
-              <MessageCircle aria-hidden="true" className="size-4.5 text-brand-secondary" />
-              Continuar pelo WhatsApp
+              {usesPartnerQuote ? (
+                <ExternalLink aria-hidden="true" className="size-4.5 text-brand-secondary" />
+              ) : (
+                <MessageCircle aria-hidden="true" className="size-4.5 text-brand-secondary" />
+              )}
+              {usesPartnerQuote ? 'Continuar cotação online' : 'Continuar pelo WhatsApp'}
             </span>
           </Button>
 
           <p aria-live="polite" className="text-sm text-text-muted">
             {handedOff
-              ? 'A conversa foi aberta no WhatsApp com seus dados já preenchidos. Se a janela não abriu, verifique o bloqueador de pop-ups do navegador.'
-              : 'O formulário não envia mensagens: ele valida seus dados e abre o WhatsApp da Xik com tudo preenchido para você revisar antes de enviar.'}
+              ? usesPartnerQuote
+                ? 'A cotação online da parceira foi aberta em uma nova aba. Se a janela não abriu, verifique o bloqueador de pop-ups do navegador.'
+                : 'A conversa foi aberta no WhatsApp com seus dados já preenchidos. Se a janela não abriu, verifique o bloqueador de pop-ups do navegador.'
+              : usesPartnerQuote
+                ? 'O formulário valida seus dados e abre a cotação online da parceira em nova aba.'
+                : 'O formulário não envia mensagens: ele valida seus dados e abre o WhatsApp da Xik com tudo preenchido para você revisar antes de enviar.'}
           </p>
         </>
       ) : (

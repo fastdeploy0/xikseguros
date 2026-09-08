@@ -7,8 +7,7 @@
  * period, exclusion or contractual condition is stated anywhere in this file.
  */
 import { company } from './company';
-import { healthPlans, insurances } from './services';
-import { insurerPartners } from './partners';
+import { healthPlans } from './services';
 
 export type FaqItem = {
   question: string;
@@ -31,19 +30,13 @@ export const faq: FaqItem[] = [
   },
   {
     question: 'Quais tipos de plano de saúde a Xik intermedia?',
-    answer: `A Xik trabalha com quatro modalidades: ${listOf(
+    answer: `A Xik trabalha com ${listOf(
       healthPlans.map((s) => s.title)
-    )}. Cada modalidade tem uma página própria com o formulário para receber valores e coberturas das operadoras.`,
+    )}. Fazemos cotações personalizadas conforme o preenchimento do formulário dentro da respectiva página do serviço de interesse.`,
   },
   {
     question: 'Quais seguros e produtos financeiros estão disponíveis?',
-    answer: `Além dos planos de saúde, a Xik atua com ${listOf(insurances.map((s) => s.title))}. O Seguro Placa Solar também consta entre os assuntos disponíveis no formulário de cotação.`,
-  },
-  {
-    question: 'Com quais seguradoras a Xik trabalha?',
-    answer: `Entre as seguradoras listadas nos formulários de cotação da Xik estão ${listOf(
-      insurerPartners
-    )}. Nos planos de saúde, a corretora também trabalha com operadoras e administradoras de benefícios, indicadas no formulário de cada modalidade.`,
+    answer: 'Atuamos em personalizações de seguros e consórcios no geral.',
   },
   {
     question: 'Como recebo valores e coberturas de um plano ou seguro?',
@@ -53,7 +46,7 @@ export const faq: FaqItem[] = [
   {
     question: 'A XIK SEGUROS atende empresas?',
     answer:
-      'Sim. A atuação da corretora abrange pessoas jurídicas no campo patrimonial, financeiro e das responsabilidades civis, além de planos de saúde empresariais para colaboradores, e pessoas físicas no campo pessoal, familiar e profissional.',
+      'Sim. A atuação da corretora abrange pessoas jurídicas no campo patrimonial, financeiro e das responsabilidades civis, com soluções pensadas para reduzir o custo das empresas em quaisquer seguros ou investimentos.',
   },
   {
     question: 'Onde a XIK SEGUROS fica?',

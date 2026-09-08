@@ -13,7 +13,7 @@ const routes = [
   '/',
   '/a-empresa',
   '/planos',
-  '/planos/plano-de-saude-individual',
+  '/planos/planos-de-saude-empresarial',
   '/seguros',
   '/seguros/seguro-automovel',
   '/blog',

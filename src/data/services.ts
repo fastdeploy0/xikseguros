@@ -13,12 +13,14 @@ import {
   Building2,
   Car,
   CircleDollarSign,
-  HeartPulse,
+  CreditCard,
   House,
   Landmark,
   Plane,
-  Users,
+  Smartphone,
+  TabletSmartphone,
   Wallet,
+  Wrench,
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { ToothIcon } from '@/components/icons/ToothIcon';
@@ -44,18 +46,6 @@ export type Service = {
 
 export const services: Service[] = [
   {
-    slug: 'plano-de-saude-individual',
-    category: 'planos',
-    label: 'Individuais',
-    title: 'Plano de Saúde Individual',
-    summary:
-      'Você está buscando um Plano de Saúde Individual? Aqui você encontra os melhores planos, das operadoras líderes de mercado, com o melhor preço. Cuide bem da sua saúde, ela é seu bem mais precioso!',
-    metaDescription:
-      'Planos de saúde individuais das operadoras líderes de mercado, intermediados pela XIK SEGUROS em Belo Horizonte.',
-    icon: HeartPulse,
-    legacyPaths: ['/plano-de-saude-individual'],
-  },
-  {
     slug: 'planos-de-saude-empresarial',
     category: 'planos',
     label: 'Empresariais',
@@ -66,18 +56,6 @@ export const services: Service[] = [
       'Planos de saúde empresariais para cuidar dos seus colaboradores, com intermediação e gestão da XIK SEGUROS.',
     icon: Building2,
     legacyPaths: ['/planos-de-saude', '/planos-de-saude-empresarial'],
-  },
-  {
-    slug: 'plano-de-saude-por-adesao',
-    category: 'planos',
-    label: 'Por adesão',
-    title: 'Plano de Saúde por Adesão',
-    summary:
-      'Você está buscando um Plano de Saúde por Adesão? A XIK SEGUROS é parceira das melhores instituições que oferecem este tipo de serviço. Conheça nossos operadores parceiros e confira!',
-    metaDescription:
-      'Planos de saúde por adesão junto às administradoras de benefícios parceiras da XIK SEGUROS.',
-    icon: Users,
-    legacyPaths: ['/plano-de-saude-por-adesao'],
   },
   {
     slug: 'plano-odontologico',
@@ -190,6 +168,78 @@ export const services: Service[] = [
       'Financiamento de veículos e avaliação de carta de crédito com apoio da XIK SEGUROS.',
     icon: Wallet,
     legacyPaths: ['/financiamento', '/financiamento-veiculos', '/financiamentos'],
+  },
+  {
+    slug: 'seguro-celular',
+    category: 'seguros',
+    label: 'Celular',
+    title: 'Seguro Celular',
+    summary:
+      'Cotação de seguro para celular com intermediação da XIK SEGUROS, no ambiente online da parceira Porto.',
+    metaDescription:
+      'Seguro celular intermediado pela XIK SEGUROS, com cotação online via Porto.',
+    icon: Smartphone,
+    legacyPaths: ['/seguro-celular'],
+  },
+  {
+    slug: 'azul-por-assinatura',
+    category: 'seguros',
+    label: 'Azul por Assinatura',
+    title: 'Azul por Assinatura',
+    summary:
+      'Seguro auto por assinatura Azul Seguros, intermediado pela XIK SEGUROS, com cotação online.',
+    metaDescription:
+      'Azul por Assinatura: seguro auto mensal intermediado pela XIK SEGUROS.',
+    icon: Car,
+    legacyPaths: ['/azul-por-assinatura'],
+  },
+  {
+    slug: 'porto-servicos',
+    category: 'seguros',
+    label: 'Porto Serviços',
+    title: 'Porto Serviços',
+    summary:
+      'Serviços residenciais e automotivos da Porto Serviço, com intermediação da XIK SEGUROS.',
+    metaDescription:
+      'Porto Serviços para casa e auto, intermediados pela XIK SEGUROS.',
+    icon: Wrench,
+    legacyPaths: ['/porto-servicos'],
+  },
+  {
+    slug: 'cartao-credito-porto-bank',
+    category: 'seguros',
+    label: 'Cartão Porto Bank',
+    title: 'Cartão de Crédito Porto Bank',
+    summary:
+      'Cartão de crédito Porto Bank com intermediação da XIK SEGUROS e contratação no ambiente online da parceira.',
+    metaDescription:
+      'Cartão de crédito Porto Bank intermediado pela XIK SEGUROS.',
+    icon: CreditCard,
+    legacyPaths: ['/cartao-credito-porto-bank'],
+  },
+  {
+    slug: 'conta-digital-porto-bank',
+    category: 'seguros',
+    label: 'Conta Digital Porto Bank',
+    title: 'Conta Digital Porto Bank',
+    summary:
+      'Conta digital Porto Bank com intermediação da XIK SEGUROS e abertura no ambiente online da parceira.',
+    metaDescription:
+      'Conta digital Porto Bank intermediada pela XIK SEGUROS.',
+    icon: Wallet,
+    legacyPaths: ['/conta-digital-porto-bank'],
+  },
+  {
+    slug: 'equipamentos-portateis',
+    category: 'seguros',
+    label: 'Equipamentos portáteis',
+    title: 'Equipamentos Portáteis',
+    summary:
+      'Proteção para equipamentos portáteis com intermediação da XIK SEGUROS e cotação online da parceira Porto.',
+    metaDescription:
+      'Equipamentos portáteis com cotação online intermediada pela XIK SEGUROS.',
+    icon: TabletSmartphone,
+    legacyPaths: ['/equipamentos-portateis'],
   },
 ];
 

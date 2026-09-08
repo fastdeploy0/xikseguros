@@ -68,12 +68,12 @@ export type Campaign = {
  * Criativo “Campanha Porto Seguro” + textos de consórcios e cotação do site
  * oficial da Xik (xikseguros.com.br).
  *
- * Fim da campanha / “Última semana”: 31/08/2026 (inclusive).
- * A partir de 01/09/2026 (BRT) `homeCampaign` resolve para `null`.
+ * Fim da campanha / “Última semana”: 08/09/2026 (inclusive).
+ * A partir de 09/09/2026 (BRT) `homeCampaign` resolve para `null`.
  */
 export const portoSeguroCampaign: Campaign = {
   active: true,
-  endsAt: '2026-08-31',
+  endsAt: '2026-09-08',
   id: 'porto-seguro-consorcio',
   eyebrow: 'Última semana',
   headline: '50% OFF no consórcio Porto Seguro',

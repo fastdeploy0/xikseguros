@@ -26,7 +26,7 @@ const CONTENT = {
       'Selecione o tipo de plano de saúde de acordo com a sua necessidade. Cada modalidade tem um formulário próprio para receber valores e coberturas das operadoras.',
     metaTitle: 'Planos de Saúde',
     metaDescription:
-      'Planos de saúde individuais, empresariais, por adesão e odontológicos intermediados pela XIK SEGUROS em Belo Horizonte.',
+      'Planos de saúde empresariais e odontológicos intermediados pela XIK SEGUROS em Belo Horizonte.',
     partnersLabel: 'Operadoras e administradoras de benefícios',
     formNames: healthPartners,
     services: healthPlans,
@@ -61,13 +61,7 @@ const CATEGORY_HERO: Record<
 
 function namesWithoutLogo(formNames: readonly string[], logoNames: string[]): string[] {
   const normalized = new Set(logoNames.map((n) => n.toLowerCase()));
-  return formNames.filter((name) => {
-    const lower = name.toLowerCase();
-    if (normalized.has(lower)) return false;
-    // "Seguros Unimed" is covered by the Unimed logo plate.
-    if (lower.includes('unimed') && [...normalized].some((n) => n.includes('unimed'))) return false;
-    return true;
-  });
+  return formNames.filter((name) => !normalized.has(name.toLowerCase()));
 }
 
 export default function CategoryPage({ category }: CategoryPageProps) {

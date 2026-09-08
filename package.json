@@ -10,6 +10,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "assets": "node scripts/prepare-assets.mjs && node scripts/prepare-partners.mjs",
+    "partners:bg": "node scripts/partner-bg.mjs --apply",
+    "partners:bg:restore": "node scripts/partner-bg.mjs --restore",
     "sitemap": "node scripts/generate-sitemap.mjs",
     "check:a11y": "node scripts/a11y.mjs",
     "check:routes": "node scripts/check-routes.mjs",

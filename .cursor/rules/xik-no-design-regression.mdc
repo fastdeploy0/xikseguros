@@ -1,0 +1,35 @@
+---
+description: Regressão de design é inaceitável; preservar DS, hierarquia e acabamento existentes
+alwaysApply: true
+---
+
+# XIK SEGUROS: sem regressão de design
+
+## Princípio
+
+O visual e o acabamento atuais são baseline. Preferência estética do agente **não** autoriza simplificar, “limpar”, homogeneizar ou redesenhar. Regressão de design é defeito, não melhoria.
+
+## Proibido (salvo pedido explícito ou defeito verificável)
+
+- Trocar tipografia, espaçamento, raios, sombras, bordas ou hierarquia só para “ficar mais limpo”
+- Substituir tokens/`@theme` por hex, rgb ou classes utilitárias genéricas
+- Remover motion intencional, texturas, gradientes, section edges ou composição do hero
+- Trocar `Button`, `Section`, `Reveal`, `Field`, `PartnerLogo*` ou padrões de layout por variantes ad hoc
+- Achatar páginas em cards genéricos, pills em excesso ou look “template AI”
+- Alterar breakpoints, densidade ou ritmo vertical sem necessidade da tarefa
+
+## Obrigatório ao editar UI
+
+1. Ler o componente/página alvo e vizinhos do mesmo padrão antes de mudar
+2. Reusar tokens em `src/styles/globals.css` e primitivos existentes
+3. Manter paridade visual mobile/desktop do bloco tocado
+4. Se a tarefa for só de dado/link/copy: **não** alterar classes de apresentação
+5. Se precisar mudar fundamento visual: justificar em uma frase no chat antes
+
+## Teste rápido anti-regressão
+
+- O bloco editado ainda parece o mesmo produto Xik (não um site genérico)?
+- Tokens e primitivos do DS continuam sendo a fonte de estilo?
+- Nada ficou “mais simples” à custa de acabamento, contraste ou hierarquia?
+
+Se a resposta for não: reverter a parte visual e entregar só o pedido funcional.

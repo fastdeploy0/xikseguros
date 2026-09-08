@@ -45,6 +45,14 @@ export default function App() {
           }
         />
         <Route
+          path="planos/plano-de-saude-individual"
+          element={<Navigate to="/planos" replace />}
+        />
+        <Route
+          path="planos/plano-de-saude-por-adesao"
+          element={<Navigate to="/planos" replace />}
+        />
+        <Route
           path="planos/:slug"
           element={
             <Suspense fallback={<RouteFallback />}>
@@ -77,6 +85,10 @@ export default function App() {
               <BlogPage />
             </Suspense>
           }
+        />
+        <Route
+          path="blog/plano-de-saude-individual-empresarial-ou-por-adesao-qual-escolher"
+          element={<Navigate to="/blog" replace />}
         />
         <Route
           path="blog/:slug"

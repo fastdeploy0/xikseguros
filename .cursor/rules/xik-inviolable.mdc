@@ -27,7 +27,7 @@ Dados comerciais centralizados em `src/data/`. Sem hardcode comercial em JSX.
 
 ## WhatsApp e formulário
 
-Número só em `public/config.js`, lido via `src/lib/runtime-config.ts`. Sem número → omitir CTAs WhatsApp. Formulário valida e pode abrir WhatsApp pré-preenchido; nunca simular “mensagem enviada”. Sem `href="#"`. Sem botão sem função.
+Número só em `public/config.js`, lido via `src/lib/runtime-config.ts`. Sem número → omitir CTAs WhatsApp. Formulário valida e pode abrir WhatsApp pré-preenchido; nunca simular “mensagem enviada”. Modalidades com cotação externa usam `src/data/external-quotes.ts`. Sem `href="#"`. Sem botão sem função.
 
 ## Design system
 

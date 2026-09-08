@@ -24,6 +24,9 @@ export const INVESTMENT_SLUGS = [
   'seguro-previdencia-privada',
   'consorcios',
   'financiamento-veiculos',
+  'cartao-credito-porto-bank',
+  'conta-digital-porto-bank',
+  'equipamentos-portateis',
 ] as const;
 
 const investmentSlugSet = new Set<string>(INVESTMENT_SLUGS);
@@ -32,7 +35,7 @@ export function isInvestmentServiceSlug(slug: string): boolean {
   return investmentSlugSet.has(slug);
 }
 
-/** Previdência, consórcios e financiamento: menu Investimentos. */
+/** Previdência, consórcios, financiamento e produtos Porto Bank: menu Investimentos. */
 export const investmentNavServices = INVESTMENT_SLUGS.map((slug) => {
   const service = services.find((item) => item.slug === slug);
   if (!service) throw new Error(`Missing investment service: ${slug}`);
@@ -44,23 +47,12 @@ export const insuranceNavServices = insurances.filter(
   (service) => !investmentSlugSet.has(service.slug)
 );
 
-const investmentNavChildren: NavChild[] = [
-  {
-    label: 'Previdência privada',
-    to: servicePath(investmentNavServices[0]),
-    description: investmentNavServices[0].title,
-  },
-  {
-    label: 'Consórcios',
-    to: servicePath(investmentNavServices[1]),
-    description: investmentNavServices[1].title,
-  },
-  {
-    label: 'Financiamento de veículos',
-    to: servicePath(investmentNavServices[2]),
-    description: investmentNavServices[2].title,
-  },
-];
+const investmentNavChildren: NavChild[] = investmentNavServices.map((service) => ({
+  label:
+    service.slug === 'financiamento-veiculos' ? 'Financiamento de veículos' : service.label,
+  to: servicePath(service),
+  description: service.title,
+}));
 
 export { investmentNavChildren };
 
@@ -102,9 +94,11 @@ export const primaryCta = { label: 'Faça sua cotação', to: '/faca-sua-cotacao
 export const legacyRoutes: Array<{ from: string; to: string }> = [
   { from: '/home', to: '/' },
   { from: '/planos-de-saude', to: '/planos/planos-de-saude-empresarial' },
-  { from: '/plano-de-saude-individual', to: '/planos/plano-de-saude-individual' },
+  { from: '/plano-de-saude-individual', to: '/planos' },
+  { from: '/planos/plano-de-saude-individual', to: '/planos' },
   { from: '/planos-de-saude-empresarial', to: '/planos/planos-de-saude-empresarial' },
-  { from: '/plano-de-saude-por-adesao', to: '/planos/plano-de-saude-por-adesao' },
+  { from: '/plano-de-saude-por-adesao', to: '/planos' },
+  { from: '/planos/plano-de-saude-por-adesao', to: '/planos' },
   { from: '/plano-odontologico', to: '/planos/plano-odontologico' },
   { from: '/seguro-automovel', to: '/seguros/seguro-automovel' },
   { from: '/seguro-de-vida', to: '/seguros/seguro-de-vida' },
@@ -112,10 +106,20 @@ export const legacyRoutes: Array<{ from: string; to: string }> = [
   { from: '/seguro-previdencia-privada', to: '/seguros/seguro-previdencia-privada' },
   { from: '/seguro-empresarial', to: '/seguros/seguro-empresarial' },
   { from: '/seguro-viagem', to: '/seguros/seguro-viagem' },
+  { from: '/seguro-celular', to: '/seguros/seguro-celular' },
+  { from: '/azul-por-assinatura', to: '/seguros/azul-por-assinatura' },
+  { from: '/porto-servicos', to: '/seguros/porto-servicos' },
+  { from: '/cartao-credito-porto-bank', to: '/seguros/cartao-credito-porto-bank' },
+  { from: '/conta-digital-porto-bank', to: '/seguros/conta-digital-porto-bank' },
+  { from: '/equipamentos-portateis', to: '/seguros/equipamentos-portateis' },
   { from: '/consorcios', to: '/seguros/consorcios' },
   { from: '/financiamento', to: '/seguros/financiamento-veiculos' },
   { from: '/financiamentos', to: '/seguros/financiamento-veiculos' },
   { from: '/financiamento-veiculos', to: '/seguros/financiamento-veiculos' },
   // The old site linked "Consórcios" to a page that returns 404; point it at the real one.
   { from: '/seguros/seguro-placa-solar', to: '/seguros/consorcios' },
+  {
+    from: '/blog/plano-de-saude-individual-empresarial-ou-por-adesao-qual-escolher',
+    to: '/blog',
+  },
 ];

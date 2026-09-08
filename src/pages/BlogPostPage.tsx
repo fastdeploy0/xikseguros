@@ -176,14 +176,26 @@ export default function BlogPostPage() {
               </p>
               <ul className="mt-4 flex flex-col gap-2">
                 {article.relatedPaths.map((item) => (
-                  <li key={item.to}>
-                    <Link
-                      to={item.to}
-                      className="inline-flex items-center gap-2 text-sm font-semibold text-brand-primary transition-colors duration-(--duration-fast) hover:text-brand-secondary-700"
-                    >
-                      {item.label}
-                      <ArrowUpRight aria-hidden="true" className="size-3.5" />
-                    </Link>
+                  <li key={item.href ?? item.to ?? item.label}>
+                    {item.href ? (
+                      <a
+                        href={item.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 text-sm font-semibold text-brand-primary transition-colors duration-(--duration-fast) hover:text-brand-secondary-700"
+                      >
+                        {item.label}
+                        <ArrowUpRight aria-hidden="true" className="size-3.5" />
+                      </a>
+                    ) : item.to ? (
+                      <Link
+                        to={item.to}
+                        className="inline-flex items-center gap-2 text-sm font-semibold text-brand-primary transition-colors duration-(--duration-fast) hover:text-brand-secondary-700"
+                      >
+                        {item.label}
+                        <ArrowUpRight aria-hidden="true" className="size-3.5" />
+                      </Link>
+                    ) : null}
                   </li>
                 ))}
               </ul>

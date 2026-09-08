@@ -1,3 +1,5 @@
+import { externalQuoteBySubject } from './external-quotes';
+
 export type BlogBlock =
   | { type: 'p'; text: string }
   | { type: 'h2'; id: string; text: string }
@@ -17,7 +19,7 @@ export type BlogArticleBody = {
   ctaTitle: string;
   ctaDescription: string;
   whatsappContext: string;
-  relatedPaths: Array<{ label: string; to: string }>;
+  relatedPaths: Array<{ label: string; to?: string; href?: string }>;
   sources: Array<{ label: string; href: string }>;
   updatedAt: string;
 };
@@ -53,86 +55,6 @@ const bcbConsortiumSource = {
 };
 
 export const blogArticles: Record<string, BlogArticleBody> = {
-  'plano-de-saude-individual-empresarial-ou-por-adesao-qual-escolher': {
-    lead:
-      'A escolha depende de quem será incluído, do vínculo disponível e das condições de cada contrato. O plano individual atende a pessoa ou família; o empresarial exige vínculo com uma empresa; e o coletivo por adesão depende de vínculo com uma entidade elegível. Compare regras, rede e custo total antes de decidir.',
-    blocks: [
-      { type: 'h2', id: 'contexto', text: 'Por que a modalidade importa' },
-      {
-        type: 'p',
-        text: 'A modalidade define quem pode contratar, como o grupo é formado e quais regras contratuais devem ser observadas. Duas propostas parecidas na apresentação podem ter diferenças relevantes na utilização e na evolução do custo.',
-      },
-      { type: 'h2', id: 'conceitos', text: 'Entenda as três opções' },
-      {
-        type: 'p',
-        text: 'No individual ou familiar, a contratação é feita diretamente pela pessoa. No empresarial, há vínculo com um CNPJ conforme os critérios da proposta. No coletivo por adesão, a entrada decorre de vínculo profissional, classista ou setorial aceito pela entidade e pelo contrato.',
-      },
-      { type: 'h2', id: 'checklist', text: 'O que comparar' },
-      {
-        type: 'ul',
-        items: [
-          'Elegibilidade de todos que precisam de cobertura.',
-          'Rede credenciada na região de uso mais frequente.',
-          'Abrangência geográfica e tipo de acomodação.',
-          'Mensalidade, coparticipação e regras de reajuste aplicáveis.',
-          'Carências, cobertura parcial temporária e demais condições contratuais.',
-        ],
-      },
-      { type: 'h2', id: 'quando-faz-sentido', text: 'Quando cada caminho pode fazer sentido' },
-      {
-        type: 'p',
-        text: 'O individual pode ser adequado quando não há vínculo coletivo. O empresarial pode atender sócios, colaboradores e dependentes elegíveis. O plano por adesão pode ser considerado por quem possui o vínculo exigido e entende as características dessa contratação.',
-      },
-      { type: 'h2', id: 'erros-comuns', text: 'Erros comuns na escolha' },
-      {
-        type: 'ul',
-        items: [
-          'Olhar apenas a mensalidade inicial.',
-          'Presumir que a rede é igual em todas as categorias.',
-          'Não confirmar a documentação de elegibilidade.',
-          'Tratar regras de uma modalidade como se valessem para outra.',
-        ],
-      },
-      {
-        type: 'callout',
-        text: 'As regras podem variar por contrato e pela regulamentação vigente da ANS. Consulte os documentos da proposta e as fontes oficiais antes de contratar.',
-      },
-      {
-        type: 'p',
-        text: 'Uma comparação orientada transforma detalhes contratuais em critérios práticos para a sua rotina.',
-      },
-    ],
-    faq: [
-      {
-        question: 'Plano empresarial é sempre mais barato que o individual?',
-        answer:
-          'Não. O valor depende da composição do grupo, faixa etária, região, produto e demais critérios da proposta. Compare também coparticipação e regras contratuais.',
-      },
-      {
-        question: 'Qualquer pessoa pode contratar plano por adesão?',
-        answer:
-          'Não. É necessário comprovar um vínculo elegível previsto na contratação. A entidade e a documentação exigida devem ser verificadas na proposta.',
-      },
-      {
-        question: 'Posso incluir familiares?',
-        answer:
-          'A inclusão depende das regras de elegibilidade e dos graus de dependência aceitos em cada contrato.',
-      },
-    ],
-    ctaTitle: 'Compare planos com orientação',
-    ctaDescription:
-      'Conte à Xik quem precisa do plano e como pretende utilizá-lo para analisar as modalidades disponíveis.',
-    whatsappContext: 'comparação entre plano individual, empresarial e por adesão',
-    relatedPaths: [
-      { label: 'Plano de saúde individual', to: '/planos/plano-de-saude-individual' },
-      { label: 'Planos de saúde empresarial', to: '/planos/planos-de-saude-empresarial' },
-      { label: 'Plano de saúde por adesão', to: '/planos/plano-de-saude-por-adesao' },
-      { label: 'Faça sua cotação', to: '/faca-sua-cotacao' },
-    ],
-    sources: ansSources,
-    updatedAt,
-  },
-
   'como-funciona-a-portabilidade-de-carencias': {
     lead:
       'A portabilidade de carências permite, quando os requisitos vigentes são atendidos, mudar de plano sem cumprir novamente determinadas carências já cumpridas. Ela não é automática: é preciso verificar a elegibilidade do beneficiário, a compatibilidade do plano de destino e a documentação no momento do pedido.',
@@ -204,8 +126,8 @@ export const blogArticles: Record<string, BlogArticleBody> = {
       'A Xik ajuda a organizar os critérios da nova escolha, sem substituir a consulta oficial de elegibilidade da ANS.',
     whatsappContext: 'avaliação de portabilidade de carências',
     relatedPaths: [
-      { label: 'Plano de saúde individual', to: '/planos/plano-de-saude-individual' },
-      { label: 'Plano de saúde por adesão', to: '/planos/plano-de-saude-por-adesao' },
+      { label: 'Planos de saúde empresarial', to: '/planos/planos-de-saude-empresarial' },
+      { label: 'Planos odontológicos', to: '/planos/plano-odontologico' },
       { label: 'Fale conosco', to: '/fale-conosco' },
     ],
     sources: ansPortabilitySources,
@@ -284,9 +206,8 @@ export const blogArticles: Record<string, BlogArticleBody> = {
       'Compartilhe suas prioridades com a Xik e compare propostas de forma consultiva.',
     whatsappContext: 'análise antes de contratar um plano de saúde',
     relatedPaths: [
-      { label: 'Plano de saúde individual', to: '/planos/plano-de-saude-individual' },
       { label: 'Planos de saúde empresarial', to: '/planos/planos-de-saude-empresarial' },
-      { label: 'Plano de saúde por adesão', to: '/planos/plano-de-saude-por-adesao' },
+      { label: 'Planos odontológicos', to: '/planos/plano-odontologico' },
       { label: 'Faça sua cotação', to: '/faca-sua-cotacao' },
     ],
     sources: ansSources,
@@ -445,7 +366,10 @@ export const blogArticles: Record<string, BlogArticleBody> = {
     relatedPaths: [
       { label: 'Seguro de vida', to: '/seguros/seguro-de-vida' },
       { label: 'Previdência privada', to: '/seguros/seguro-previdencia-privada' },
-      { label: 'Faça sua cotação', to: '/faca-sua-cotacao' },
+      {
+        label: 'Faça sua cotação',
+        href: externalQuoteBySubject['Seguro de Vida'],
+      },
     ],
     sources: [susepConsumerSource],
     updatedAt,
@@ -523,7 +447,10 @@ export const blogArticles: Record<string, BlogArticleBody> = {
     whatsappContext: 'cotação de seguro residencial',
     relatedPaths: [
       { label: 'Seguro residencial', to: '/seguros/seguro-residencial' },
-      { label: 'Faça sua cotação', to: '/faca-sua-cotacao' },
+      {
+        label: 'Faça sua cotação',
+        href: externalQuoteBySubject['Seguro Residencial'],
+      },
       { label: 'Fale conosco', to: '/fale-conosco' },
     ],
     sources: [susepConsumerSource],
@@ -602,7 +529,10 @@ export const blogArticles: Record<string, BlogArticleBody> = {
     whatsappContext: 'seguro residencial para apartamento',
     relatedPaths: [
       { label: 'Seguro residencial', to: '/seguros/seguro-residencial' },
-      { label: 'Faça sua cotação', to: '/faca-sua-cotacao' },
+      {
+        label: 'Faça sua cotação',
+        href: externalQuoteBySubject['Seguro Residencial'],
+      },
     ],
     sources: [susepConsumerSource],
     updatedAt,

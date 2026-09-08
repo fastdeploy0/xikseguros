@@ -1,39 +1,53 @@
 /**
- * Partner catalogue with logos supplied in `source_assets/` (optimised into
- * `src/assets/partners/`).
+ * Partner catalogue with logos in `src/assets/partners/`.
  *
- * Names that already appeared in the Xik quotation forms keep that provenance.
- * Additional brands whose logos were provided in `source_assets/` are included
- * as visual partners without inventing form-list membership claims.
+ * Naming convention for new assets:
+ * - `*-seguros` / `*-seguro` → category `seguros` (skip if already catalogued)
+ * - `*-saude` / `*-plano-saude` / `*-planos-saude` → category `planos`
+ * - `*-dental` / `*-odontologico` → category `planos` (odontológico)
+ *
+ * Existing `*-seguros` already in the catalogue (do not duplicate):
+ * azul-seguros, hdi-seguros, itau-seguros, zurich-seguros.
+ *
+ * TODO(content): logo de Bradesco Seguros (hoje só nome no formulário).
  */
 import type { ServiceCategory } from './services';
 
-import logoAffix from '@/assets/partners/affix.webp';
+import logoAliro from '@/assets/partners/aliro-seguro.webp';
 import logoAllianz from '@/assets/partners/allianz.webp';
-import logoAllcare from '@/assets/partners/allcare.webp';
 import logoAmil from '@/assets/partners/amil.webp';
-import logoAmilDental from '@/assets/partners/amil-dental.webp';
+import logoAuroraSaude from '@/assets/partners/aurora-saude.webp';
+import logoAza from '@/assets/partners/aza-seguros.webp';
 import logoAzul from '@/assets/partners/azul-seguros.webp';
+import logoBradescoDental from '@/assets/partners/bradesco-dental.webp';
 import logoBradescoSaude from '@/assets/partners/bradesco-saude.webp';
-import logoGoldenCross from '@/assets/partners/golden-cross.webp';
-import logoGoodlife from '@/assets/partners/goodlife.webp';
+import logoChubb from '@/assets/partners/chubb-seguros.webp';
+import logoDarwin from '@/assets/partners/darwin-seguros.webp';
+import logoEzze from '@/assets/partners/ezze-seguros.webp';
+import logoHapvida from '@/assets/partners/hapvida-plano-saude.webp';
 import logoHdi from '@/assets/partners/hdi-seguros.webp';
 import logoItau from '@/assets/partners/itau-seguros.webp';
+import logoJustos from '@/assets/partners/justos-seguros.webp';
+import logoMag from '@/assets/partners/mag-seguros.webp';
+import logoMapfre from '@/assets/partners/mapfre-seguros.webp';
 import logoMedsenior from '@/assets/partners/medsenior.webp';
 import logoMetlife from '@/assets/partners/metlife.webp';
-import logoMongeral from '@/assets/partners/mongeral-aegon.webp';
+import logoMitsui from '@/assets/partners/mitsui-sumitomo-seguros.webp';
+import logoNova from '@/assets/partners/nova-seguros.webp';
 import logoOdontoprev from '@/assets/partners/odontoprev.webp';
 import logoPorto from '@/assets/partners/porto.webp';
-import logoPremium from '@/assets/partners/premium-saude.webp';
-import logoQualicorp from '@/assets/partners/qualicorp.webp';
-import logoSaudeSistema from '@/assets/partners/saude-sistema.webp';
-import logoSompo from '@/assets/partners/sompo-seguros.webp';
+import logoPortoOdonto from '@/assets/partners/porto-seguro-odontologico.webp';
+import logoPortoSaude from '@/assets/partners/porto-seguro-saude.webp';
+import logoSelect from '@/assets/partners/select-planos-saude.webp';
+import logoSuhai from '@/assets/partners/suhai-seguros.webp';
 import logoSulAmerica from '@/assets/partners/sul-america.webp';
 import logoSura from '@/assets/partners/sura.webp';
 import logoTokio from '@/assets/partners/tokio-marine-seguradora.webp';
-import logoUnimed from '@/assets/partners/unimed.webp';
-import logoVitallis from '@/assets/partners/vitallis.webp';
+import logoUsebens from '@/assets/partners/usebens-seguros.webp';
+import logoUsiSaude from '@/assets/partners/usi-saude.webp';
 import logoYamaha from '@/assets/partners/yamaha.webp';
+import logoYelum from '@/assets/partners/yelum-seguros.webp';
+import logoYouse from '@/assets/partners/youse-seguros.webp';
 import logoZurich from '@/assets/partners/zurich-seguros.webp';
 
 export type Partner = {
@@ -43,19 +57,25 @@ export type Partner = {
   /** Categories where this logo is shown on hub/service pages. */
   categories: ServiceCategory[];
   /**
-   * True when the name also appears in the Xik quotation form option lists
-   * recovered from the live site.
+   * True when the name also appears in the Xik quotation form option lists.
    */
   listedInForms: boolean;
 };
 
 export const partners: Partner[] = [
-  { id: 'affix', name: 'Affix Benefícios', logo: logoAffix, categories: ['planos'], listedInForms: true },
-  { id: 'allianz', name: 'Allianz', logo: logoAllianz, categories: ['planos', 'seguros'], listedInForms: true },
-  { id: 'allcare', name: 'AllCare Benefícios', logo: logoAllcare, categories: ['planos'], listedInForms: true },
+  { id: 'aliro-seguro', name: 'Aliro Seguro', logo: logoAliro, categories: ['seguros'], listedInForms: true },
+  { id: 'allianz', name: 'Allianz', logo: logoAllianz, categories: ['seguros'], listedInForms: true },
   { id: 'amil', name: 'Amil', logo: logoAmil, categories: ['planos'], listedInForms: true },
-  { id: 'amil-dental', name: 'Amil Dental', logo: logoAmilDental, categories: ['planos'], listedInForms: true },
+  { id: 'aurora-saude', name: 'Aurora Saúde', logo: logoAuroraSaude, categories: ['planos'], listedInForms: true },
+  { id: 'aza-seguros', name: 'AZA Seguros', logo: logoAza, categories: ['seguros'], listedInForms: true },
   { id: 'azul-seguros', name: 'Azul Seguros', logo: logoAzul, categories: ['seguros'], listedInForms: true },
+  {
+    id: 'bradesco-dental',
+    name: 'Bradesco Dental',
+    logo: logoBradescoDental,
+    categories: ['planos'],
+    listedInForms: true,
+  },
   {
     id: 'bradesco-saude',
     name: 'Bradesco Saúde',
@@ -63,73 +83,69 @@ export const partners: Partner[] = [
     categories: ['planos'],
     listedInForms: true,
   },
-  {
-    id: 'golden-cross',
-    name: 'Golden Cross',
-    logo: logoGoldenCross,
-    categories: ['planos'],
-    listedInForms: false,
-  },
-  {
-    id: 'goodlife',
-    name: 'GoodLife Saúde',
-    logo: logoGoodlife,
-    categories: ['planos'],
-    listedInForms: true,
-  },
+  { id: 'chubb-seguros', name: 'Chubb', logo: logoChubb, categories: ['seguros'], listedInForms: true },
+  { id: 'darwin-seguros', name: 'Darwin Seguros', logo: logoDarwin, categories: ['seguros'], listedInForms: true },
+  { id: 'ezze-seguros', name: 'EZZE Seguros', logo: logoEzze, categories: ['seguros'], listedInForms: true },
+  { id: 'hapvida-plano-saude', name: 'Hapvida', logo: logoHapvida, categories: ['planos'], listedInForms: true },
   { id: 'hdi-seguros', name: 'HDI Seguros', logo: logoHdi, categories: ['seguros'], listedInForms: true },
   { id: 'itau-seguros', name: 'Itaú Seguros', logo: logoItau, categories: ['seguros'], listedInForms: true },
+  { id: 'justos-seguros', name: 'Justos', logo: logoJustos, categories: ['seguros'], listedInForms: true },
+  { id: 'mag-seguros', name: 'MAG Seguros', logo: logoMag, categories: ['seguros'], listedInForms: true },
+  { id: 'mapfre-seguros', name: 'Mapfre', logo: logoMapfre, categories: ['seguros'], listedInForms: true },
   { id: 'medsenior', name: 'MedSênior', logo: logoMedsenior, categories: ['planos'], listedInForms: true },
   { id: 'metlife', name: 'MetLife', logo: logoMetlife, categories: ['seguros'], listedInForms: true },
   {
-    id: 'mongeral-aegon',
-    name: 'Mongeral Aegon',
-    logo: logoMongeral,
+    id: 'mitsui-sumitomo-seguros',
+    name: 'Mitsui Sumitomo',
+    logo: logoMitsui,
     categories: ['seguros'],
-    listedInForms: false,
+    listedInForms: true,
   },
+  { id: 'nova-seguros', name: 'Nova Seguros', logo: logoNova, categories: ['seguros'], listedInForms: true },
   { id: 'odontoprev', name: 'OdontoPrev', logo: logoOdontoprev, categories: ['planos'], listedInForms: true },
   { id: 'porto', name: 'Porto Seguro', logo: logoPorto, categories: ['seguros'], listedInForms: true },
   {
-    id: 'premium-saude',
-    name: 'Premium Saúde',
-    logo: logoPremium,
-    categories: ['planos'],
-    listedInForms: true,
-  },
-  { id: 'qualicorp', name: 'Qualicorp', logo: logoQualicorp, categories: ['planos'], listedInForms: true },
-  {
-    id: 'saude-sistema',
-    name: 'Saúde Sistema',
-    logo: logoSaudeSistema,
+    id: 'porto-seguro-odontologico',
+    name: 'Porto Seguro Odontológico',
+    logo: logoPortoOdonto,
     categories: ['planos'],
     listedInForms: true,
   },
   {
-    id: 'sompo-seguros',
-    name: 'Sompo Seguros',
-    logo: logoSompo,
-    categories: ['seguros'],
-    listedInForms: false,
+    id: 'porto-seguro-saude',
+    name: 'Porto Seguro Saúde',
+    logo: logoPortoSaude,
+    categories: ['planos'],
+    listedInForms: true,
   },
+  {
+    id: 'select-planos-saude',
+    name: 'Select',
+    logo: logoSelect,
+    categories: ['planos'],
+    listedInForms: true,
+  },
+  { id: 'suhai-seguros', name: 'Suhai Seguros', logo: logoSuhai, categories: ['seguros'], listedInForms: true },
   {
     id: 'sul-america',
     name: 'SulAmérica',
     logo: logoSulAmerica,
-    categories: ['planos'],
+    categories: ['planos', 'seguros'],
     listedInForms: true,
   },
-  { id: 'sura', name: 'Sura', logo: logoSura, categories: ['seguros'], listedInForms: false },
+  { id: 'sura', name: 'Sura', logo: logoSura, categories: ['seguros'], listedInForms: true },
   {
     id: 'tokio-marine',
     name: 'Tokio Marine',
     logo: logoTokio,
     categories: ['seguros'],
-    listedInForms: false,
+    listedInForms: true,
   },
-  { id: 'unimed', name: 'Unimed', logo: logoUnimed, categories: ['planos', 'seguros'], listedInForms: true },
-  { id: 'vitallis', name: 'Vitallis', logo: logoVitallis, categories: ['planos'], listedInForms: true },
-  { id: 'yamaha', name: 'Yamaha', logo: logoYamaha, categories: ['seguros'], listedInForms: false },
+  { id: 'usebens-seguros', name: 'Usebens', logo: logoUsebens, categories: ['seguros'], listedInForms: true },
+  { id: 'usi-saude', name: 'UsiSaúde', logo: logoUsiSaude, categories: ['planos'], listedInForms: true },
+  { id: 'yamaha', name: 'Yamaha', logo: logoYamaha, categories: ['seguros'], listedInForms: true },
+  { id: 'yelum-seguros', name: 'Yelum Seguros', logo: logoYelum, categories: ['seguros'], listedInForms: true },
+  { id: 'youse-seguros', name: 'Youse', logo: logoYouse, categories: ['seguros'], listedInForms: true },
   { id: 'zurich', name: 'Zurich Seguros', logo: logoZurich, categories: ['seguros'], listedInForms: true },
 ];
 
@@ -139,42 +155,27 @@ export const partnersForCategory = (category: ServiceCategory): Partner[] =>
   partners.filter((p) => p.categories.includes(category));
 
 /**
- * OPERADORAS / SEGURADORAS logos published on each live modality page
- * (xikseguros.com.br), in the same visual order. Ids map to assets in
- * `source_assets/` / `src/assets/partners/`.
- *
- * Brands shown on the live site without a matching asset are omitted
- * (e.g. Bradesco Seguros: only `bradesco-saude` exists in source_assets).
+ * Logos published per modality page.
+ * Brands without a matching asset are omitted (e.g. Bradesco Seguros).
  */
 export const servicePartnerLogos: Record<string, readonly string[]> = {
-  'plano-de-saude-individual': [
-    'vitallis',
-    'unimed',
-    'goodlife',
-    'premium-saude',
-    'medsenior',
-  ],
   'planos-de-saude-empresarial': [
     'bradesco-saude',
-    'allianz',
     'sul-america',
     'amil',
-    'golden-cross',
-    'vitallis',
-    'premium-saude',
-    'goodlife',
-    'saude-sistema',
-    'unimed',
+    'porto-seguro-saude',
+    'hapvida-plano-saude',
+    'aurora-saude',
+    'select-planos-saude',
+    'usi-saude',
+    'medsenior',
   ],
   'plano-odontologico': [
-    'porto',
     'odontoprev',
-    'amil-dental',
+    'porto-seguro-odontologico',
+    'bradesco-dental',
     'sul-america',
-    'metlife',
-    'golden-cross',
   ],
-  'plano-de-saude-por-adesao': ['qualicorp', 'allcare', 'affix'],
 
   consorcios: ['porto', 'yamaha'],
   'seguro-automovel': [
@@ -185,16 +186,24 @@ export const servicePartnerLogos: Record<string, readonly string[]> = {
     'zurich',
     'sul-america',
     'hdi-seguros',
-    'sompo-seguros',
     'sura',
+    'mapfre-seguros',
+    'yelum-seguros',
+    'aliro-seguro',
+    'suhai-seguros',
+    'justos-seguros',
+    'youse-seguros',
+    'darwin-seguros',
+    'ezze-seguros',
   ],
   'seguro-de-vida': [
     'porto',
-    'mongeral-aegon',
     'allianz',
     'zurich',
     'sul-america',
     'tokio-marine',
+    'metlife',
+    'mag-seguros',
   ],
   'seguro-residencial': [
     'porto',
@@ -203,8 +212,10 @@ export const servicePartnerLogos: Record<string, readonly string[]> = {
     'hdi-seguros',
     'tokio-marine',
     'sul-america',
+    'mapfre-seguros',
+    'youse-seguros',
   ],
-  'seguro-previdencia-privada': ['porto', 'mongeral-aegon', 'sul-america'],
+  'seguro-previdencia-privada': ['porto', 'sul-america', 'mag-seguros'],
   'seguro-empresarial': [
     'allianz',
     'azul-seguros',
@@ -213,6 +224,10 @@ export const servicePartnerLogos: Record<string, readonly string[]> = {
     'zurich',
     'sul-america',
     'hdi-seguros',
+    'chubb-seguros',
+    'mapfre-seguros',
+    'mitsui-sumitomo-seguros',
+    'ezze-seguros',
   ],
   'seguro-viagem': ['porto', 'sul-america'],
   'financiamento-veiculos': ['porto'],
@@ -227,41 +242,50 @@ export function partnersForServiceSlug(slug: string): Partner[] {
     .filter((partner): partner is Partner => partner !== undefined);
 }
 
-/** Form-list names that still have no logo asset: kept for quote forms / FAQ. */
+/** Form-list names for seguradoras (logos optional). */
 export const insurerPartners: string[] = [
+  'Aliro Seguro',
   'Allianz',
+  'AZA Seguros',
   'Azul Seguros',
   'Bradesco Seguros',
+  'Chubb',
+  'Darwin Seguros',
+  'EZZE Seguros',
   'HDI Seguros',
   'Itaú Seguros',
+  'Justos',
+  'MAG Seguros',
+  'Mapfre',
   'MetLife',
+  'Mitsui Sumitomo',
+  'Nova Seguros',
   'Porto Seguro',
-  'Seguros Unimed',
+  'Suhai Seguros',
   'SulAmérica',
+  'Sura',
+  'Tokio Marine',
+  'Usebens',
+  'Yamaha',
+  'Yelum Seguros',
+  'Youse',
   'Zurich Seguros',
 ];
 
+/** Form-list names for planos de saúde e odontológicos (logos optional). */
 export const healthPartners: string[] = [
-  'Affix Benefícios',
-  'Allianz',
-  'AllCare Benefícios',
   'Amil',
-  'Amil Dental',
-  'Bem Benefícios',
+  'Aurora Saúde',
+  'Bradesco Dental',
   'Bradesco Saúde',
-  'GoodLife Saúde',
+  'Hapvida',
   'MedSênior',
   'OdontoPrev',
-  'One Health',
-  'Premium Saúde',
-  'Promed',
-  'Qualicorp',
-  'Samp',
+  'Porto Seguro Odontológico',
+  'Porto Seguro Saúde',
+  'Select',
   'SulAmérica',
-  'Unimed',
-  'Vitallis',
-  'Vivamed Saúde',
-  'Saúde Sistema',
+  'UsiSaúde',
 ];
 
 export const allPartners: string[] = [...new Set([...insurerPartners, ...healthPartners])].sort((a, b) =>
@@ -276,16 +300,20 @@ export const servicePartnerHighlights: Array<{
   serviceSlug: string;
   partnerId: string;
 }> = [
-  { serviceSlug: 'plano-de-saude-individual', partnerId: 'amil' },
   { serviceSlug: 'planos-de-saude-empresarial', partnerId: 'bradesco-saude' },
-  { serviceSlug: 'plano-de-saude-por-adesao', partnerId: 'qualicorp' },
   { serviceSlug: 'plano-odontologico', partnerId: 'odontoprev' },
   { serviceSlug: 'seguro-automovel', partnerId: 'porto' },
-  { serviceSlug: 'seguro-de-vida', partnerId: 'metlife' },
-  { serviceSlug: 'seguro-residencial', partnerId: 'tokio-marine' },
-  { serviceSlug: 'seguro-previdencia-privada', partnerId: 'mongeral-aegon' },
+  { serviceSlug: 'seguro-de-vida', partnerId: 'porto' },
+  { serviceSlug: 'seguro-residencial', partnerId: 'porto' },
+  { serviceSlug: 'seguro-celular', partnerId: 'porto' },
+  { serviceSlug: 'azul-por-assinatura', partnerId: 'azul-seguros' },
+  { serviceSlug: 'porto-servicos', partnerId: 'porto' },
+  { serviceSlug: 'seguro-previdencia-privada', partnerId: 'mag-seguros' },
   { serviceSlug: 'seguro-empresarial', partnerId: 'allianz' },
   { serviceSlug: 'seguro-viagem', partnerId: 'zurich' },
   { serviceSlug: 'consorcios', partnerId: 'yamaha' },
   { serviceSlug: 'financiamento-veiculos', partnerId: 'itau-seguros' },
+  { serviceSlug: 'cartao-credito-porto-bank', partnerId: 'porto' },
+  { serviceSlug: 'conta-digital-porto-bank', partnerId: 'porto' },
+  { serviceSlug: 'equipamentos-portateis', partnerId: 'porto' },
 ];

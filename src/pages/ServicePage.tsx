@@ -1,9 +1,7 @@
 import { useMemo } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowUpRight, Phone } from 'lucide-react';
-import heroPlanoIndividual from '@/assets/marketing/xik-hero-plano-individual.webp';
 import heroPlanoEmpresarial from '@/assets/marketing/xik-hero-plano-empresarial.webp';
-import heroPlanoAdesao from '@/assets/marketing/xik-hero-plano-adesao.webp';
 import heroPlanoOdonto from '@/assets/marketing/xik-hero-plano-odonto.webp';
 import heroSeguroAutomovel from '@/assets/marketing/xik-hero-seguro-automovel.webp';
 import heroSeguroDeVida from '@/assets/marketing/xik-hero-seguro-de-vida.webp';
@@ -13,6 +11,12 @@ import heroSeguroEmpresarial from '@/assets/marketing/xik-hero-seguro-empresaria
 import heroSeguroViagem from '@/assets/marketing/xik-hero-seguro-viagem.webp';
 import heroSeguroConsorcios from '@/assets/marketing/xik-hero-seguro-consorcios.webp';
 import heroSeguroFinanciamento from '@/assets/marketing/xik-hero-seguro-financiamento-veiculos.webp';
+import heroAzulAssinatura from '@/assets/marketing/xik-hero-azul-assinatura.webp';
+import heroSeguroCelular from '@/assets/marketing/xik-hero-seguro-celular.webp';
+import heroEquipPortateis from '@/assets/marketing/xik-hero-equip-portateis.webp';
+import heroPortoContaDigital from '@/assets/marketing/xik-hero-porto-conta-digital.webp';
+import heroPortoCard from '@/assets/marketing/xik-hero-porto-card.webp';
+import heroPortoServicos from '@/assets/marketing/xik-hero-porto-servicos.webp';
 import { company } from '@/data/company';
 import { findService, servicePath, services, type Service, type ServiceCategory } from '@/data/services';
 import {
@@ -26,6 +30,7 @@ import {
   partnersForCategory,
   partnersForServiceSlug,
 } from '@/data/partners';
+import { externalQuoteUrlForSlug } from '@/data/external-quotes';
 import { breadcrumbSchema } from '@/lib/seo';
 import { Seo } from '@/components/Seo';
 import { PageHero } from '@/components/sections/PageHero';
@@ -55,17 +60,9 @@ function relatedServicesFor(service: Service): Service[] {
 }
 
 const HERO_ASIDE_BY_SLUG: Record<string, { src: string; alt: string }> = {
-  'plano-de-saude-individual': {
-    src: heroPlanoIndividual,
-    alt: 'Ilustração do plano de saúde individual intermediado pela XIK SEGUROS',
-  },
   'planos-de-saude-empresarial': {
     src: heroPlanoEmpresarial,
     alt: 'Ilustração dos planos de saúde empresariais intermediados pela XIK SEGUROS',
-  },
-  'plano-de-saude-por-adesao': {
-    src: heroPlanoAdesao,
-    alt: 'Ilustração do plano de saúde por adesão intermediado pela XIK SEGUROS',
   },
   'plano-odontologico': {
     src: heroPlanoOdonto,
@@ -103,6 +100,30 @@ const HERO_ASIDE_BY_SLUG: Record<string, { src: string; alt: string }> = {
     src: heroSeguroFinanciamento,
     alt: 'Ilustração de financiamento de veículos intermediado pela XIK SEGUROS',
   },
+  'azul-por-assinatura': {
+    src: heroAzulAssinatura,
+    alt: 'Ilustração do Azul por Assinatura intermediado pela XIK SEGUROS',
+  },
+  'seguro-celular': {
+    src: heroSeguroCelular,
+    alt: 'Ilustração do seguro celular intermediado pela XIK SEGUROS',
+  },
+  'equipamentos-portateis': {
+    src: heroEquipPortateis,
+    alt: 'Ilustração de equipamentos portáteis intermediados pela XIK SEGUROS',
+  },
+  'conta-digital-porto-bank': {
+    src: heroPortoContaDigital,
+    alt: 'Ilustração da Conta Digital Porto Bank intermediada pela XIK SEGUROS',
+  },
+  'cartao-credito-porto-bank': {
+    src: heroPortoCard,
+    alt: 'Ilustração do Cartão de Crédito Porto Bank intermediado pela XIK SEGUROS',
+  },
+  'porto-servicos': {
+    src: heroPortoServicos,
+    alt: 'Ilustração dos Porto Serviços intermediados pela XIK SEGUROS',
+  },
 };
 
 export default function ServicePage({ category }: { category: ServiceCategory }) {
@@ -134,6 +155,7 @@ export default function ServicePage({ category }: { category: ServiceCategory })
   const relatedIsInvestment = isInvestmentServiceSlug(service.slug);
   const Icon = service.icon;
   const heroAside = HERO_ASIDE_BY_SLUG[service.slug];
+  const partnerQuoteUrl = externalQuoteUrlForSlug(service.slug);
 
   return (
     <>
@@ -145,17 +167,23 @@ export default function ServicePage({ category }: { category: ServiceCategory })
         description={service.summary}
         trail={trail}
         actions={
-          <>
-            <Button href="#cotacao" external={false} variant="secondary" withArrow>
+          partnerQuoteUrl ? (
+            <Button href={partnerQuoteUrl} external variant="secondary" withArrow>
               Receber valores e coberturas
             </Button>
-            <Button href={`tel:${company.phones[0].tel}`} external={false} variant="invert">
-              <span className="inline-flex items-center gap-2.5">
-                <Phone aria-hidden="true" className="size-4 text-brand-secondary" />
-                {company.phones[0].display}
-              </span>
-            </Button>
-          </>
+          ) : (
+            <>
+              <Button href="#cotacao" external={false} variant="secondary" withArrow>
+                Receber valores e coberturas
+              </Button>
+              <Button href={`tel:${company.phones[0].tel}`} external={false} variant="invert">
+                <span className="inline-flex items-center gap-2.5">
+                  <Phone aria-hidden="true" className="size-4 text-brand-secondary" />
+                  {company.phones[0].display}
+                </span>
+              </Button>
+            </>
+          )
         }
         aside={
           heroAside ? (
@@ -198,10 +226,18 @@ export default function ServicePage({ category }: { category: ServiceCategory })
               Receba o catálogo completo desta modalidade
             </h2>
             <p className="measure mt-5 text-lead text-text-muted">
-              A Xik envia as informações completas sobre planos, valores e coberturas de cada{' '}
-              {category === 'planos' ? 'operadora' : 'seguradora'} por e-mail ou WhatsApp, junto com
-              a orientação de um consultor.
+              {partnerQuoteUrl
+                ? 'A cotação desta modalidade é feita no ambiente online da parceira. Use o botão abaixo ou o formulário ao lado para seguir.'
+                : `A Xik envia as informações completas sobre planos, valores e coberturas de cada ${
+                    category === 'planos' ? 'operadora' : 'seguradora'
+                  } por e-mail ou WhatsApp, junto com a orientação de um consultor.`}
             </p>
+
+            {partnerQuoteUrl ? (
+              <Button href={partnerQuoteUrl} external variant="primary" withArrow className="mt-8">
+                Continuar cotação online
+              </Button>
+            ) : null}
 
             <div className="mt-9 border-t border-border pt-7">
               <h3 className="text-[0.6875rem] font-bold tracking-[0.2em] text-text-subtle uppercase">

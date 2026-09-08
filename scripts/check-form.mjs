@@ -16,6 +16,8 @@ const falseSuccess = await page.getByText(/enviad[ao]|sucesso/i).count();
 await page.fill('#quote-name', 'Maria Silva');
 await page.fill('#quote-email', 'maria@exemplo.com.br');
 await page.fill('#quote-phone', '123');
+await page.fill('#quote-document', '123.456.789-09');
+await page.fill('#quote-age', '35');
 await page.selectOption('#quote-subject', { label: 'Seguro Automóvel' });
 await page.check('#quote-consent');
 await page.getByRole('button', { name: /continuar pelo whatsapp/i }).click();
@@ -33,6 +35,7 @@ const [popup] = await Promise.all([
 const popupUrl = popup ? popup.url() : null;
 await page.waitForTimeout(400);
 const confirmation = await page.getByText(/conversa foi aberta no whatsapp/i).count();
+const decoded = popupUrl ? decodeURIComponent(popupUrl) : '';
 
 console.log(
   JSON.stringify(
@@ -41,13 +44,13 @@ console.log(
       errorMessages: errors,
       falseSuccessMessages: falseSuccess,
       phoneError: phoneError?.trim(),
-      popupUrl: popupUrl ? decodeURIComponent(popupUrl).slice(0, 400) : null,
+      popupUrl: decoded ? decoded.slice(0, 400) : null,
       popupHost: popupUrl ? new URL(popupUrl).host : null,
       popupNumber: popupUrl ? new URL(popupUrl).pathname.replace('/', '') : null,
-      popupCarriesName: popupUrl ? decodeURIComponent(popupUrl).includes('Maria Silva') : false,
-      popupCarriesSubject: popupUrl
-        ? decodeURIComponent(popupUrl).includes('Seguro Automóvel')
-        : false,
+      popupCarriesName: decoded.includes('Maria Silva'),
+      popupCarriesSubject: decoded.includes('Seguro Automóvel'),
+      popupCarriesDocument: decoded.includes('123.456.789-09'),
+      popupCarriesAge: decoded.includes('35'),
       popupUsesCommercialNumber: popupUrl ? popupUrl.includes('553134620007') : false,
       handoffNoticeShown: confirmation,
     },

@@ -12,7 +12,7 @@ const problems = [];
 const expected = [
   ['/home', '/'],
   ['/planos-de-saude', '/planos/planos-de-saude-empresarial'],
-  ['/plano-de-saude-individual', '/planos/plano-de-saude-individual'],
+  ['/plano-de-saude-individual', '/planos'],
   ['/plano-odontologico', '/planos/plano-odontologico'],
   ['/seguro-automovel', '/seguros/seguro-automovel'],
   ['/seguro-de-vida', '/seguros/seguro-de-vida'],

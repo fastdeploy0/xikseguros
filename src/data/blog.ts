@@ -13,7 +13,6 @@ import thumb04 from '@/assets/blog/xik-blog-04.webp';
 import thumb05 from '@/assets/blog/xik-blog-05.webp';
 import thumb06 from '@/assets/blog/xik-blog-06.webp';
 import thumb07 from '@/assets/blog/xik-blog-07.webp';
-import thumb08 from '@/assets/blog/xik-blog-08.webp';
 import thumb09 from '@/assets/blog/xik-blog-09.webp';
 import thumb10 from '@/assets/blog/xik-blog-10.webp';
 import thumb11 from '@/assets/blog/xik-blog-11.webp';
@@ -73,21 +72,6 @@ export const blogQuickTopics: Array<{ label: string; query: string }> = [
  * Thumbnails mapped by visual theme (see postblog/), not by source filename order.
  */
 export const blogPosts: BlogPost[] = [
-  {
-    slug: 'plano-de-saude-individual-empresarial-ou-por-adesao-qual-escolher',
-    title: 'Plano de saúde individual, empresarial ou por adesão: qual escolher?',
-    category: 'planos-de-saude',
-    excerpt:
-      'Entenda as diferenças entre as modalidades e o que observar antes de pedir uma cotação.',
-    status: 'published',
-    keywords: ['individual', 'empresarial', 'adesão', 'modalidade'],
-    // Bifurcação de caminhos: escolha entre modalidades de vida/plano.
-    image: thumb08,
-    publishedAt: '2026-08-01',
-    metaTitle: 'Plano individual, empresarial ou por adesão',
-    metaDescription:
-      'Compare planos de saúde individual, empresarial e por adesão: diferenças, público e o que analisar antes de cotar com a XIK SEGUROS.',
-  },
   {
     slug: 'como-funciona-a-portabilidade-de-carencias',
     title: 'Como funciona a portabilidade de carências?',

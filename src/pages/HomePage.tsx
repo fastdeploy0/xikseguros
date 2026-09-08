@@ -4,6 +4,7 @@ import { faqSchema, organizationSchema } from '@/lib/seo';
 import { Seo } from '@/components/Seo';
 import { Hero } from '@/components/sections/Hero';
 import { PartnersSection } from '@/components/sections/PartnersSection';
+import { QuickQuoteSection } from '@/components/sections/QuickQuoteSection';
 import { ConsortiumPricingSection } from '@/components/sections/ConsortiumPricingSection';
 import { SolutionsSection } from '@/components/sections/SolutionsSection';
 import { PositioningSection } from '@/components/sections/PositioningSection';
@@ -24,6 +25,7 @@ export default function HomePage() {
 
       <Hero />
       <PartnersSection />
+      <QuickQuoteSection />
       <ConsortiumPricingSection />
       <SolutionsSection />
       <PositioningSection />

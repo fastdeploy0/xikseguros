@@ -15,9 +15,9 @@ const GROUPS = [
     index: '01',
     label: 'Planos de saúde',
     count: healthPlans.length,
-    /** Brief cue from the four published health modalities: not a new claim. */
+    /** Brief cue from the published health modalities: not a new claim. */
     blurb:
-      'Individuais, empresariais, por adesão e odontológicos. Cotação junto às operadoras e administradoras parceiras da Xik.',
+      'Empresariais e odontológicos. Cotação junto às operadoras e administradoras parceiras da Xik.',
   },
   {
     id: 'solucoes-seguros',
@@ -25,7 +25,7 @@ const GROUPS = [
     label: 'Seguros, consórcios e financiamentos',
     count: insurances.length,
     blurb:
-      'Automóvel, vida, residencial, previdência, empresarial e viagem, além de consórcios e financiamentos de veículos.',
+      'Seguros, serviços e produtos financeiros intermediados pela Xik, com cotação nas parceiras.',
   },
 ] as const;
 
