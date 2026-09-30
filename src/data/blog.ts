@@ -74,7 +74,7 @@ export const blogQuickTopics: Array<{ label: string; query: string }> = [
 export const blogPosts: BlogPost[] = [
   {
     slug: 'como-funciona-a-portabilidade-de-carencias',
-    title: 'Como funciona a portabilidade de carências?',
+    title: 'Portabilidade de carências: como trocar de plano sem começar do zero?',
     category: 'planos-de-saude',
     excerpt: 'Pontos essenciais para quem já tem plano e avalia migrar de operadora.',
     status: 'published',
@@ -88,7 +88,7 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: 'o-que-analisar-antes-de-contratar-um-plano-de-saude',
-    title: 'O que analisar antes de contratar um plano de saúde?',
+    title: 'Plano de saúde: o que comparar para escolher bem e evitar surpresas?',
     category: 'planos-de-saude',
     excerpt: 'Checklist consultivo para comparar propostas com mais clareza.',
     status: 'published',
@@ -102,7 +102,7 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: 'plano-de-saude-empresarial-para-pequenas-empresas-vale-a-pena',
-    title: 'Plano de saúde empresarial para pequenas empresas: vale a pena?',
+    title: 'Plano de saúde empresarial: vale a pena para sua pequena empresa?',
     category: 'planos-de-saude',
     excerpt: 'Quando o plano coletivo faz sentido para times menores.',
     status: 'published',
@@ -116,7 +116,7 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: 'seguro-de-vida-o-que-e-e-para-quem-e-indicado',
-    title: 'Seguro de vida: o que é e para quem é indicado?',
+    title: 'Seguro de vida: como funciona e quando faz sentido para proteger sua família?',
     category: 'pessoas-e-familias',
     excerpt: 'Uma visão clara do papel do seguro de vida na proteção familiar.',
     status: 'published',
@@ -130,7 +130,7 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: 'seguro-residencial-o-que-cobre-e-quanto-custa',
-    title: 'Seguro residencial: o que cobre e quanto custa?',
+    title: 'Seguro residencial: quanto custa proteger sua casa e o que está incluído?',
     category: 'protecao-patrimonial',
     excerpt:
       'Orientação geral sobre o papel do seguro residencial. Valores dependem de análise com um consultor.',
@@ -145,7 +145,7 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: 'seguro-residencial-para-apartamento-principais-coberturas',
-    title: 'Seguro residencial para apartamento: principais coberturas',
+    title: 'Seguro para apartamento: quais coberturas fazem diferença para você?',
     category: 'protecao-patrimonial',
     excerpt: 'O que costuma entrar em pauta na proteção de unidades em condomínio.',
     status: 'published',
@@ -159,7 +159,7 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: 'seguro-viagem-o-que-analisar-antes-de-contratar',
-    title: 'Seguro viagem: o que analisar antes de contratar?',
+    title: 'Seguro viagem: o que conferir para viajar com mais tranquilidade?',
     category: 'pessoas-e-familias',
     excerpt: 'Critérios práticos para escolher cobertura de viagem com orientação da corretora.',
     status: 'published',
@@ -173,7 +173,7 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: 'consorcio-ou-financiamento-qual-e-melhor',
-    title: 'Consórcio ou financiamento: qual é melhor?',
+    title: 'Consórcio ou financiamento: qual combina com seu bolso e seus planos?',
     category: 'consorcios-e-financiamento',
     excerpt: 'Compare lógicas de pagamento, prazos e quando cada caminho costuma fazer sentido.',
     status: 'published',
@@ -187,7 +187,7 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: 'como-funciona-a-contemplacao-no-consorcio',
-    title: 'Como funciona a contemplação no consórcio?',
+    title: 'Contemplação no consórcio: quando você pode usar sua carta de crédito?',
     category: 'consorcios-e-financiamento',
     excerpt: 'Lance, sorteio e o que muda depois da contemplação, em linguagem direta.',
     status: 'published',
@@ -201,7 +201,7 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: 'o-que-avaliar-antes-de-escolher-uma-carta-de-credito',
-    title: 'O que avaliar antes de escolher uma carta de crédito?',
+    title: 'Carta de crédito: como escolher sem comprometer seu orçamento?',
     category: 'consorcios-e-financiamento',
     excerpt: 'Prazo, parcela e objetivo do bem: o que alinhar com um consultor.',
     status: 'published',
@@ -215,7 +215,7 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: 'financiamento-de-veiculos-documentos-e-etapas',
-    title: 'Financiamento de veículos: documentos e etapas',
+    title: 'Financiamento de veículos: quais documentos preparar e como funciona a contratação?',
     category: 'consorcios-e-financiamento',
     excerpt: 'Visão geral do fluxo de avaliação de crédito para aquisição de veículos.',
     status: 'published',
@@ -229,7 +229,7 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: 'previdencia-privada-pgbl-ou-vgbl',
-    title: 'Previdência privada: PGBL ou VGBL?',
+    title: 'PGBL ou VGBL: qual faz mais sentido para o seu futuro?',
     category: 'previdencia-e-planejamento',
     excerpt: 'Diferenças conceituais para conversar com a Xik sobre o seu perfil.',
     status: 'published',
@@ -243,7 +243,7 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: 'seguro-empresarial-para-pequenas-empresas',
-    title: 'Seguro empresarial para pequenas empresas',
+    title: 'Seguro empresarial: como proteger sua pequena empresa de imprevistos?',
     category: 'protecao-patrimonial',
     excerpt: 'Proteção patrimonial e responsabilidades civis no dia a dia da empresa.',
     status: 'published',
@@ -257,7 +257,7 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: 'corretora-de-seguros-por-que-contratar-uma-consultoria-especializada',
-    title: 'Corretora de seguros: por que contratar uma consultoria especializada?',
+    title: 'Consultoria especializada: como escolher o seguro certo para você?',
     category: 'guia-de-decisao',
     excerpt: 'O papel da corretora na comparação de opções e no acompanhamento da contratação.',
     status: 'published',
