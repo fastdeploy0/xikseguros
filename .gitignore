@@ -17,7 +17,7 @@ source_assets/
 assets-source/
 
 # Stray files at repo root
-sul-america.webp
+/sul-america.webp
 
 # Editor
 .vscode/*
