@@ -1,64 +1,42 @@
-import { useEffect, useRef, useState, type ReactNode, type RefObject } from 'react';
-import { motion, useReducedMotion, useScroll, useSpring } from 'motion/react';
+import { useState } from 'react';
+import officeInterior from '@/assets/marketing/xik-interna.webp';
 import { company } from '@/data/company';
 import { cn } from '@/lib/cn';
 import { Container } from '@/components/ui/Container';
 import { Eyebrow } from '@/components/ui/Eyebrow';
 import { Reveal } from '@/components/ui/Reveal';
 
-const CHAPTERS = ['Missão', 'Visão', 'Valores'] as const;
-
-/** Faixa de leitura usada para decidir qual capítulo domina a viewport. */
-const READING_BAND = '-45% 0px -45% 0px';
+const PRINCIPLES = [
+  {
+    label: 'Missão',
+    lead: 'O que orienta cada escolha',
+    content: company.mission,
+  },
+  {
+    label: 'Visão',
+    lead: 'Para quem a especialização deve fazer diferença',
+    content: company.vision,
+  },
+  {
+    label: 'Valores',
+    lead: 'Como a relação é conduzida',
+    content: null,
+  },
+] as const;
 
 const ordinal = (index: number) => String(index + 1).padStart(2, '0');
+const count = (value: number) => String(value).padStart(2, '0');
 
 /**
- * Princípios de `/a-empresa`: missão, visão e valores lidos como três capítulos
- * de um mesmo manifesto, costurados por um eixo vertical único cujo
- * preenchimento em ouro acompanha a progressão de leitura.
- *
- * Usa `<section>` puro em vez de `Section` porque a coluna de orientação é
- * `sticky` e `Section` aplica `overflow-hidden`, que anula sticky nos filhos.
- * Tonalidade, borda, container e ritmo vertical seguem os tokens do sistema.
+ * Guided reading of the verified institutional principles. The visitor chooses
+ * a step or advances through the sequence, rather than scanning three generic
+ * blocks at once.
  */
 export function PrinciplesSection() {
-  const reduced = useReducedMotion();
-  const narrativeRef = useRef<HTMLDivElement>(null);
-  const missionRef = useRef<HTMLElement>(null);
-  const visionRef = useRef<HTMLElement>(null);
-  const valuesRef = useRef<HTMLElement>(null);
-  const [activeChapter, setActiveChapter] = useState(0);
-
-  const { scrollYProgress } = useScroll({
-    target: narrativeRef,
-    offset: ['start 85%', 'end 65%'],
-  });
-  const axisFill = useSpring(scrollYProgress, { stiffness: 140, damping: 30, mass: 0.35 });
-
-  useEffect(() => {
-    if (reduced) return;
-
-    // Ordem fixa: o índice no array é o número do capítulo.
-    const nodes = [missionRef.current, visionRef.current, valuesRef.current];
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (!entry.isIntersecting) continue;
-          const index = nodes.indexOf(entry.target as HTMLElement);
-          if (index >= 0) setActiveChapter(index);
-        }
-      },
-      { rootMargin: READING_BAND }
-    );
-
-    for (const node of nodes) {
-      if (node) observer.observe(node);
-    }
-
-    return () => observer.disconnect();
-  }, [reduced]);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const active = PRINCIPLES[activeIndex];
+  const previous = PRINCIPLES[activeIndex - 1];
+  const next = PRINCIPLES[activeIndex + 1];
 
   return (
     <section
@@ -67,42 +45,44 @@ export function PrinciplesSection() {
       style={{ paddingBlock: 'var(--spacing-section)' }}
     >
       <Container>
-        <div className="lg:grid lg:grid-cols-[20rem_minmax(0,1fr)] lg:items-start lg:gap-x-16 xl:grid-cols-[22rem_minmax(0,1fr)] xl:gap-x-24">
-          {/* Coluna de orientação: título da seção e índice dos capítulos. */}
+        <div className="lg:grid lg:grid-cols-[17rem_minmax(0,1fr)] lg:items-start lg:gap-x-16 xl:grid-cols-[20rem_minmax(0,1fr)] xl:gap-x-24">
           <div className="lg:sticky lg:top-28">
             <Reveal>
               <Eyebrow>Princípios</Eyebrow>
               <h2 id="principios-titulo" className="mt-5 text-display font-extrabold text-balance">
-                Missão, visão e valores
+                O que sustenta uma relação de confiança
               </h2>
+              <p className="mt-5 max-w-[30ch] text-base leading-relaxed text-text-muted">
+                Escolha um princípio para conhecer a forma como a XIK apresenta sua atuação.
+              </p>
 
-              <ol aria-hidden="true" className="mt-12 hidden lg:flex lg:flex-col">
-                {CHAPTERS.map((label, index) => {
-                  const current = !reduced && index === activeChapter;
+              <ol className="mt-10 flex gap-2 lg:flex-col lg:gap-1.5">
+                {PRINCIPLES.map((principle, index) => {
+                  const isActive = index === activeIndex;
                   return (
-                    <li key={label} className="flex items-center gap-4 py-2.5">
-                      <span
+                    <li key={principle.label} className="flex-1">
+                      <button
+                        type="button"
+                        onClick={() => setActiveIndex(index)}
+                        aria-current={isActive ? 'step' : undefined}
+                        aria-controls="principio-conteudo"
                         className={cn(
-                          'h-px shrink-0 transition-[width,background-color] duration-(--duration-base) ease-(--ease-out-brand)',
-                          current ? 'w-9 bg-brand-secondary-600' : 'w-4 bg-border-strong'
-                        )}
-                      />
-                      <span
-                        className={cn(
-                          'text-[0.6875rem] font-bold tracking-[0.16em] tabular-nums transition-colors duration-(--duration-base)',
-                          current ? 'text-brand-secondary-700' : 'text-text-subtle'
-                        )}
-                      >
-                        {ordinal(index)}
-                      </span>
-                      <span
-                        className={cn(
-                          'text-sm font-semibold transition-colors duration-(--duration-base)',
-                          current ? 'text-brand-primary' : 'text-text-subtle'
+                          'group flex min-h-11 w-full items-center gap-3 rounded-sm border px-3 py-2 text-left transition-colors duration-(--duration-base) focus-visible:outline-offset-2 lg:px-4',
+                          isActive
+                            ? 'border-brand-secondary-600 bg-brand-primary text-text-invert'
+                            : 'border-transparent text-text-muted hover:border-border-strong hover:bg-surface'
                         )}
                       >
-                        {label}
-                      </span>
+                        <span
+                          className={cn(
+                            'text-[0.6875rem] font-bold tracking-[0.16em] tabular-nums',
+                            isActive ? 'text-brand-secondary-300' : 'text-text-subtle group-hover:text-brand-secondary-700'
+                          )}
+                        >
+                          {ordinal(index)}
+                        </span>
+                        <span className="text-sm font-bold">{principle.label}</span>
+                      </button>
                     </li>
                   );
                 })}
@@ -110,107 +90,81 @@ export function PrinciplesSection() {
             </Reveal>
           </div>
 
-          {/* Coluna narrativa: os três capítulos sobre um único eixo. */}
-          <div ref={narrativeRef} className="relative mt-14 lg:mt-0">
-            <div aria-hidden="true" className="absolute inset-y-0 left-0 w-px bg-border-strong">
-              <motion.span
-                className="block h-full w-px origin-top bg-brand-secondary-600"
-                style={{ scaleY: reduced ? 1 : axisFill }}
-              />
-              <span className="absolute bottom-0 left-1/2 size-[7px] -translate-x-1/2 translate-y-1/2 rotate-45 border border-border-strong bg-surface-sunken" />
-            </div>
+          <div className="mt-12 grid gap-8 lg:mt-0 lg:grid-cols-[minmax(0,1fr)_minmax(14rem,0.72fr)] lg:gap-10 xl:gap-14">
+            <Reveal>
+              <article
+                id="principio-conteudo"
+                aria-live="polite"
+                aria-label={`${active.label}, etapa ${activeIndex + 1} de ${PRINCIPLES.length}`}
+                className="flex min-h-full flex-col border-t border-brand-secondary-600 pt-5 sm:pt-7"
+              >
+                <div className="flex items-center justify-between gap-4">
+                  <p className="text-[0.6875rem] font-bold tracking-[0.18em] text-brand-secondary-700 uppercase">
+                    {count(activeIndex + 1)} de {count(PRINCIPLES.length)}
+                  </p>
+                  <span className="h-px flex-1 bg-border-strong" />
+                  <p className="text-[0.6875rem] font-bold tracking-[0.16em] text-text-subtle uppercase">
+                    {active.label}
+                  </p>
+                </div>
 
-            <Chapter ref={missionRef} index={0} label="Missão" reached>
-              <p className="mt-5 max-w-[46ch] text-lead leading-relaxed lg:mt-6">
-                {company.mission}
-              </p>
-            </Chapter>
+                <h3 className="mt-8 text-title font-extrabold text-balance">{active.lead}</h3>
 
-            <Chapter
-              ref={visionRef}
-              index={1}
-              label="Visão"
-              reached={reduced || activeChapter >= 1}
-            >
-              <p className="mt-5 max-w-[58ch] text-lead leading-relaxed lg:mt-6">
-                {company.vision}
-              </p>
-            </Chapter>
+                {active.content ? (
+                  <p className="mt-6 max-w-[52ch] text-lead leading-relaxed">{active.content}</p>
+                ) : (
+                  <ol className="mt-7 border-t border-border-strong">
+                    {company.values.map((value, index) => (
+                      <li key={value} className="flex gap-4 border-b border-border py-4 sm:gap-5 sm:py-5">
+                        <span className="mt-1 text-[0.6875rem] font-bold tracking-[0.16em] text-brand-secondary-700 tabular-nums">
+                          {ordinal(index)}
+                        </span>
+                        <span className="max-w-[48ch] text-base leading-relaxed text-text sm:text-[1.0625rem]">{value}</span>
+                      </li>
+                    ))}
+                  </ol>
+                )}
 
-            <Chapter
-              ref={valuesRef}
-              index={2}
-              label="Valores"
-              reached={reduced || activeChapter >= 2}
-            >
-              <ol className="mt-6 border-t border-border-strong lg:mt-8">
-                {company.values.map((value, index) => (
-                  <li
-                    key={value}
-                    className="group relative flex gap-3.5 border-b border-border py-4 sm:gap-5 sm:py-5 lg:gap-7 lg:py-6"
+                <nav aria-label="Navegação entre os princípios" className="mt-10 flex flex-wrap gap-3">
+                  <button
+                    type="button"
+                    onClick={() => setActiveIndex((index) => index - 1)}
+                    disabled={!previous}
+                    className="min-h-11 rounded-sm border border-border-strong px-4 text-sm font-bold text-brand-primary transition-colors duration-(--duration-fast) enabled:hover:border-brand-secondary-600 enabled:hover:bg-surface disabled:cursor-not-allowed disabled:opacity-45"
                   >
-                    <span
-                      aria-hidden="true"
-                      className="mt-[0.3rem] shrink-0 text-[0.6875rem] font-bold tracking-[0.16em] text-text-subtle tabular-nums transition-colors duration-(--duration-base) group-hover:text-brand-secondary-700 lg:mt-[0.4rem]"
-                    >
-                      {ordinal(index)}
-                    </span>
-                    <span className="max-w-[54ch] text-[1.0625rem] leading-relaxed text-text transition-transform duration-(--duration-base) ease-(--ease-out-brand) group-hover:translate-x-1 lg:text-lg">
-                      {value}
-                    </span>
-                    <span
-                      aria-hidden="true"
-                      className="pointer-events-none absolute -bottom-px left-0 h-px w-0 bg-brand-secondary-600 transition-[width] duration-(--duration-base) ease-(--ease-out-brand) group-hover:w-full"
-                    />
-                  </li>
-                ))}
-              </ol>
-            </Chapter>
+                    {previous ? `Voltar para ${previous.label}` : 'Início do percurso'}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setActiveIndex((index) => index + 1)}
+                    disabled={!next}
+                    className="min-h-11 rounded-sm bg-brand-primary px-4 text-sm font-bold text-text-invert transition-colors duration-(--duration-fast) enabled:hover:bg-brand-primary-600 disabled:cursor-not-allowed disabled:opacity-45"
+                  >
+                    {next ? `Avançar para ${next.label}` : 'Fim do percurso'}
+                  </button>
+                </nav>
+              </article>
+            </Reveal>
+
+            <Reveal index={1} className="lg:sticky lg:top-28">
+              <figure className="overflow-hidden rounded-xl border border-border bg-surface shadow-soft">
+                <img
+                  src={officeInterior}
+                  alt="Sala de reuniões da XIK SEGUROS com mesa, cadeiras e identidade visual da marca"
+                  width={2160}
+                  height={2880}
+                  loading="lazy"
+                  decoding="async"
+                  className="aspect-[4/3] w-full object-cover object-center lg:aspect-[4/5]"
+                />
+                <figcaption className="border-t border-border bg-surface px-4 py-3 text-sm font-semibold text-brand-primary">
+                  Um espaço para conversas que pedem atenção.
+                </figcaption>
+              </figure>
+            </Reveal>
           </div>
         </div>
       </Container>
     </section>
-  );
-}
-
-type ChapterProps = {
-  ref: RefObject<HTMLElement | null>;
-  index: number;
-  label: string;
-  /** Capítulo já alcançado pela leitura: acende o nó no eixo e o ordinal. */
-  reached: boolean;
-  children: ReactNode;
-};
-
-function Chapter({ ref, index, label, reached, children }: ChapterProps) {
-  return (
-    <article ref={ref} className="relative pb-14 pl-6 last:pb-0 sm:pb-16 sm:pl-9 lg:pb-24 lg:pl-16">
-      <span
-        aria-hidden="true"
-        className={cn(
-          'absolute top-[0.45rem] left-0 size-[7px] -translate-x-1/2 rotate-45 border transition-colors duration-(--duration-base)',
-          reached
-            ? 'border-brand-secondary-600 bg-brand-secondary-600'
-            : 'border-border-strong bg-surface-sunken'
-        )}
-      />
-      <Reveal>
-        <div className="flex items-center gap-3.5">
-          <span
-            aria-hidden="true"
-            className={cn(
-              'text-[0.6875rem] font-bold tracking-[0.16em] tabular-nums transition-colors duration-(--duration-base)',
-              reached ? 'text-brand-secondary-700' : 'text-text-subtle'
-            )}
-          >
-            {ordinal(index)}
-          </span>
-          <h3 className="text-[0.6875rem] font-bold tracking-[0.2em] text-text uppercase">
-            {label}
-          </h3>
-        </div>
-        {children}
-      </Reveal>
-    </article>
   );
 }

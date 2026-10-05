@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { Phone } from 'lucide-react';
 import ceoPortrait from '@/assets/marketing/foto-institucinal-ceo.webp';
 import ceoPortraitSm from '@/assets/marketing/foto-institucinal-ceo-sm.webp';
+import officeFacadeNight from '@/assets/marketing/xik-noturna.webp';
 import { company, socialLinks } from '@/data/company';
 import { breadcrumbSchema, organizationSchema } from '@/lib/seo';
 import { Seo } from '@/components/Seo';
@@ -158,6 +159,21 @@ export default function AboutPage() {
                 ))}
               </ul>
             </div>
+
+            <figure className="overflow-hidden rounded-xl border border-border bg-surface shadow-soft">
+              <img
+                src={officeFacadeNight}
+                alt="Fachada noturna da XIK SEGUROS com letreiro iluminado"
+                width={2160}
+                height={2880}
+                loading="lazy"
+                decoding="async"
+                className="aspect-[16/10] w-full object-cover object-[center_62%]"
+              />
+              <figcaption className="border-t border-border bg-surface px-4 py-3 text-sm font-semibold text-brand-primary">
+                A XIK SEGUROS em Belo Horizonte.
+              </figcaption>
+            </figure>
           </Reveal>
         </div>
       </Section>

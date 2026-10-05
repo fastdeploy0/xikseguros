@@ -5,6 +5,7 @@ dist-ssr
 
 # QA artefacts produced by the scripts in /scripts
 _shots
+.superpowers/
 
 # Internal handoff / briefing / impeccable status (not required for deploy)
 HANDOFF_OPUS.md

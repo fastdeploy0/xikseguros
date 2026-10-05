@@ -56,9 +56,7 @@ export const company = {
   },
 
   phones: [
-    { label: 'Telefone fixo', tel: '+553134620007', display: '(31) 3462-0007' },
-    { label: 'Celular', tel: '+5531999978568', display: '(31) 99997-8568' },
-    { label: 'Celular', tel: '+5531995035535', display: '(31) 99503-5535' },
+    { label: 'Telefone', tel: '+553134620007', display: '(31) 3462-0007' },
   ] satisfies Phone[],
 
   // TODO(content): o site oficial não publica endereço de e-mail. Confirmar com a
