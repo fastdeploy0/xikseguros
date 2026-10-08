@@ -170,7 +170,7 @@ function QuickQuoteCard({
 
         <Link
           to={item.internalPath}
-          className="pointer-events-auto relative z-20 w-fit text-sm font-medium text-text-muted underline-offset-4 transition-colors hover:text-brand-primary hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-secondary"
+          className="pointer-events-auto relative z-20 min-h-6 w-fit text-sm font-medium text-text-muted underline-offset-4 transition-colors hover:text-brand-primary hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-secondary"
           onClick={(event) => event.stopPropagation()}
         >
           Saber mais
