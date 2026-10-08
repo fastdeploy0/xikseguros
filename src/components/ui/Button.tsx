@@ -1,5 +1,5 @@
 ﻿import type { ButtonHTMLAttributes, ReactNode } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, type LinkProps } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/cn';
 
@@ -39,7 +39,7 @@ type CommonProps = {
 type AsButton = CommonProps &
   ButtonHTMLAttributes<HTMLButtonElement> & { to?: never; href?: never };
 
-type AsLink = CommonProps & { to: string; href?: never };
+type AsLink = CommonProps & { to: string; href?: never; onClick?: LinkProps['onClick'] };
 
 type AsAnchor = CommonProps & {
   href: string;
@@ -71,7 +71,7 @@ export function Button(props: ButtonProps) {
 
   if ('to' in props && props.to) {
     return (
-      <Link to={props.to} className={classes}>
+      <Link to={props.to} onClick={props.onClick} className={classes}>
         <Inner withArrow={withArrow}>{children}</Inner>
       </Link>
     );

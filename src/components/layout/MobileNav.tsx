@@ -41,7 +41,7 @@ export function MobileNav({ open, onClose, returnFocusTo }: MobileNavProps) {
     const first = panelRef.current?.querySelector<HTMLElement>(FOCUSABLE);
     first?.focus();
     const trigger = returnFocusTo.current;
-    return () => trigger?.focus();
+    return () => trigger?.focus({ preventScroll: true });
   }, [open, returnFocusTo]);
 
   // Escape closes; Tab is trapped inside the panel while it is open.
@@ -154,7 +154,7 @@ export function MobileNav({ open, onClose, returnFocusTo }: MobileNavProps) {
             </nav>
 
             <div className="flex flex-col gap-3 border-t border-border-invert px-6 py-6">
-              <Button to={primaryCta.to} variant="secondary" size="lg" withArrow>
+              <Button to={primaryCta.to} onClick={onClose} variant="secondary" size="lg" withArrow>
                 {primaryCta.label}
               </Button>
 
