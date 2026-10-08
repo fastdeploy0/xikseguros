@@ -3,22 +3,19 @@ import type { FocusEvent as ReactFocusEvent, PointerEvent as ReactPointerEvent }
 import { Link } from 'react-router-dom';
 import { ArrowUpRight } from 'lucide-react';
 import { motion, useReducedMotion } from 'motion/react';
-import { quickQuoteUsesLeadForm } from '@/data/quick-quote-forms';
 import { resolveQuickQuotes, type QuickQuoteItem, type QuickQuoteSlug } from '@/data/quick-quotes';
 import { cn } from '@/lib/cn';
 import { Section } from '@/components/ui/Section';
 import { Reveal } from '@/components/ui/Reveal';
 import { SectionHeading } from './SectionHeading';
-import { QuickQuoteLeadModal } from './QuickQuoteLeadModal';
 
 /**
  * Permanent home rail: cotação online.
- * Most cards open a WhatsApp lead form; Cartão / Conta digital keep the Porto link.
+ * All cards open their corresponding Porto quotation in a new tab.
  */
 export function QuickQuoteSection() {
   const items = resolveQuickQuotes();
   const [activeSlug, setActiveSlug] = useState<QuickQuoteSlug | null>(null);
-  const [leadItem, setLeadItem] = useState<QuickQuoteItem | null>(null);
 
   if (items.length === 0) return null;
 
@@ -33,8 +30,8 @@ export function QuickQuoteSection() {
       <SectionHeading
         id="cotacao-rapida-titulo"
         eyebrow="Cotação online"
-        title="Cotar agora, direto na parceira"
-        description="Escolha o produto, preencha o formulário e abra a conversa no WhatsApp. Cartão e Conta Digital seguem para a cotação online da Porto."
+        title="Cotar Agora"
+        description="Escolha o produto para cotar online na Porto. O link abre em uma nova aba."
       />
 
       <ul className="mt-10 grid list-none gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3 lg:gap-5">
@@ -49,13 +46,11 @@ export function QuickQuoteSection() {
               onDeactivate={() =>
                 setActiveSlug((current) => (current === item.slug ? null : current))
               }
-              onOpenLead={() => setLeadItem(item)}
             />
           </Reveal>
         ))}
       </ul>
 
-      <QuickQuoteLeadModal item={leadItem} onClose={() => setLeadItem(null)} />
     </Section>
   );
 }
@@ -67,7 +62,6 @@ type QuickQuoteCardProps = {
   isDimmed: boolean;
   onActivate: () => void;
   onDeactivate: () => void;
-  onOpenLead: () => void;
 };
 
 function QuickQuoteCard({
@@ -77,12 +71,10 @@ function QuickQuoteCard({
   isDimmed,
   onActivate,
   onDeactivate,
-  onOpenLead,
 }: QuickQuoteCardProps) {
   const Icon = item.icon;
   const reduced = useReducedMotion();
   const ref = useRef<HTMLElement>(null);
-  const usesLeadForm = quickQuoteUsesLeadForm(item.slug);
 
   const trackPointer = (event: ReactPointerEvent<HTMLElement>) => {
     if (event.pointerType !== 'mouse') return;
@@ -128,14 +120,6 @@ function QuickQuoteCard({
         }}
       />
 
-      {usesLeadForm ? (
-        <button
-          type="button"
-          onClick={onOpenLead}
-          className="absolute inset-0 z-0 rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-secondary"
-          aria-label={`Preencher cotação de ${item.title}`}
-        />
-      ) : (
         <a
           href={item.externalUrl}
           target="_blank"
@@ -143,7 +127,6 @@ function QuickQuoteCard({
           className="absolute inset-0 z-0 rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-secondary"
           aria-label={`Cotar ${item.title} online`}
         />
-      )}
 
       <div className="relative z-10 flex flex-1 flex-col gap-4 p-5 pointer-events-none sm:p-6">
         <div className="flex items-start justify-between gap-3">
@@ -174,7 +157,7 @@ function QuickQuoteCard({
         </h3>
 
         <span className="mt-auto inline-flex items-center gap-2 pt-1 text-sm font-semibold text-brand-primary">
-          {usesLeadForm ? 'Solicitar cotação' : 'Cotar agora'}
+          Cotar agora
           <motion.span
             animate={reduced ? undefined : { x: isActive ? 4 : 0, y: isActive ? -2 : 0 }}
             transition={{ type: 'spring', stiffness: 320, damping: 22 }}

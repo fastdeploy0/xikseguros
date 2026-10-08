@@ -12,7 +12,7 @@ export const externalQuoteBySlug: Readonly<Record<string, string>> = {
   'seguro-residencial':
     'http://www.porto.vc/RESIDENCIAESSENCIAL_N123KJ_4f7ba2e7574b4e3d856b8c61cf4b75b0',
   'seguro-celular':
-    'http://www.porto.vc/SEGUROCELULAR_N123KJ_2eea7a77570444ee9f30c3269d9c20d4',
+    'http://www.porto.vc/SEGUROCELULAR_N123KJ_c2092b08ceb84f088f1830464f1fd7cc',
   'azul-por-assinatura':
     'http://www.porto.vc/AZULPORASSINATURA_N123KJ_6eb09bba310c4b799505380039aee1e6',
   'porto-servicos':
