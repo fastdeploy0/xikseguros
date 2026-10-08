@@ -6,7 +6,7 @@ Branch: `ajustes-1210`, criada a partir de `apresentacao-0510` no commit `4f8917
 
 - Item 1 implementado: título Cotar Agora, nove cards com os links da tabela Porto, nova aba e `noopener noreferrer`, link do celular corrigido, remoção do modal antigo e dos módulos exclusivos dele.
 - Item 2 implementado: CTA compartilhado do header leva a `/#cotacao-rapida`; `/faca-sua-cotacao` redireciona; scroll e foco na seção; CTA fecha o menu mobile; rota redirecionada retirada do sitemap.
-- Item 3 pendente: foi perguntado se Aliro sai do site ou permanece depois da Porto Bank. O catálogo de parceiros aguarda essa resposta, conforme a instrução de perguntar antes. Porto Bank ainda está como arquivo local não versionado.
+- Item 3 implementado: Porto Bank em primeiro lugar e Aliro em segundo na grade. Os logos Porto Seguro e Porto Seguro Saúde foram retirados do catálogo e das referências por modalidade; Porto Seguro Odontológico foi preservado.
 - Item 4 implementado: `ConsortiumSimulationModal`, controlado por `open` e `onClose`, pronto para o futuro hero. Dados e opções em `src/data/consortium-simulation.ts`; número lido da configuração existente. O modal ainda não está ligado a um CTA público.
 
 O formulário compartilhado de Contato e dos serviços que ainda o utilizam foi preservado. Não houve alteração do harness, Sinistro e Cobrança, biosite ou graphify.
@@ -24,7 +24,7 @@ O formulário compartilhado de Contato e dos serviços que ainda o utilizam foi 
 - Modal testado em página local temporária, removida do código: 390 e 1280 px; validação dos obrigatórios, nome com acentos e caracteres especiais, opções, foco inicial, Esc, Fechar, retorno do foco, fechamento após abertura do WhatsApp, limpeza ao reabrir e inclusão condicional de parcela/lance. `window.open` foi interceptado para conferir a mensagem sem enviar dados. Axe do diálogo sem violações.
 - Capturas da seção Cotar Agora e do modal inspecionadas em desktop e celular. Artefatos locais em `_shots/`, não versionados.
 
-As verificações devem ser repetidas após concluir a alteração pendente dos parceiros.
+Após a alteração dos parceiros, foram repetidos `typecheck`, `lint`, `build` e `check:visual` no preview. A ordem dos dois primeiros logos e a presença do odontológico foram conferidas em desktop e celular.
 
 ## Commits de implementação
 
@@ -44,6 +44,7 @@ Modificados:
 
 - `public/sitemap.xml`
 - `scripts/generate-sitemap.mjs`
+- `scripts/partner-bg.mjs`
 - `src/App.tsx`
 - `src/components/layout/Layout.tsx`
 - `src/components/layout/MobileNav.tsx`
@@ -52,11 +53,13 @@ Modificados:
 - `src/components/ui/Section.tsx`
 - `src/data/external-quotes.ts`
 - `src/data/navigation.ts`
+- `src/data/partners.ts`
 
 Criados:
 
 - `src/components/sections/ConsortiumSimulationModal.tsx`
 - `src/data/consortium-simulation.ts`
+- `src/assets/partners/porto-bank.jpg`
 - `docs/ajustes-1210-design.md`
 - `docs/ajustes-1210-entrega.md`
 
@@ -66,8 +69,10 @@ Removidos por não terem mais uso:
 - `src/data/quick-quote-forms.ts`
 - `src/lib/quick-quote-schema.ts`
 - `src/pages/QuotePage.tsx`
+- `src/assets/partners/porto.webp`
+- `src/assets/partners/porto-seguro-saude.webp`
 
-Alterações prévias do usuário preservadas, fora dos commits: `src/assets/marketing/xik-interna.webp` e `src/assets/partners/porto-bank.jpg`. A foto interna é a versão prevista para o design futuro.
+Alteração prévia do usuário preservada, fora dos commits: `src/assets/marketing/xik-interna.webp`. A foto interna é a versão prevista para o design futuro. O arquivo fornecido `src/assets/partners/porto-bank.jpg` foi incluído no commit do item 3.
 
 `HANDOFF_OPUS.md` não foi encontrado na pasta e não é versionado. Foram lidos AGENTS.md, as regras em `.cursor/rules/`, README.md e o contexto indicado no Obsidian. Nenhum arquivo foi editado fora do repositório.
 

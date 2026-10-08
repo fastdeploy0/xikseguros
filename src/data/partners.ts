@@ -35,9 +35,8 @@ import logoMetlife from '@/assets/partners/metlife.webp';
 import logoMitsui from '@/assets/partners/mitsui-sumitomo-seguros.webp';
 import logoNova from '@/assets/partners/nova-seguros.webp';
 import logoOdontoprev from '@/assets/partners/odontoprev.webp';
-import logoPorto from '@/assets/partners/porto.webp';
+import logoPortoBank from '@/assets/partners/porto-bank.jpg';
 import logoPortoOdonto from '@/assets/partners/porto-seguro-odontologico.webp';
-import logoPortoSaude from '@/assets/partners/porto-seguro-saude.webp';
 import logoSelect from '@/assets/partners/select-planos-saude.webp';
 import logoSuhai from '@/assets/partners/suhai-seguros.webp';
 import logoSulAmerica from '@/assets/partners/sul-america.webp';
@@ -63,6 +62,7 @@ export type Partner = {
 };
 
 export const partners: Partner[] = [
+  { id: 'porto-bank', name: 'Porto Bank', logo: logoPortoBank, categories: ['seguros'], listedInForms: false },
   { id: 'aliro-seguro', name: 'Aliro Seguro', logo: logoAliro, categories: ['seguros'], listedInForms: true },
   { id: 'allianz', name: 'Allianz', logo: logoAllianz, categories: ['seguros'], listedInForms: true },
   { id: 'amil', name: 'Amil', logo: logoAmil, categories: ['planos'], listedInForms: true },
@@ -103,18 +103,10 @@ export const partners: Partner[] = [
   },
   { id: 'nova-seguros', name: 'Nova Seguros', logo: logoNova, categories: ['seguros'], listedInForms: true },
   { id: 'odontoprev', name: 'OdontoPrev', logo: logoOdontoprev, categories: ['planos'], listedInForms: true },
-  { id: 'porto', name: 'Porto Seguro', logo: logoPorto, categories: ['seguros'], listedInForms: true },
   {
     id: 'porto-seguro-odontologico',
     name: 'Porto Seguro Odontológico',
     logo: logoPortoOdonto,
-    categories: ['planos'],
-    listedInForms: true,
-  },
-  {
-    id: 'porto-seguro-saude',
-    name: 'Porto Seguro Saúde',
-    logo: logoPortoSaude,
     categories: ['planos'],
     listedInForms: true,
   },
@@ -163,7 +155,6 @@ export const servicePartnerLogos: Record<string, readonly string[]> = {
     'bradesco-saude',
     'sul-america',
     'amil',
-    'porto-seguro-saude',
     'hapvida-plano-saude',
     'aurora-saude',
     'select-planos-saude',
@@ -177,9 +168,8 @@ export const servicePartnerLogos: Record<string, readonly string[]> = {
     'sul-america',
   ],
 
-  consorcios: ['porto', 'yamaha'],
+  consorcios: ['yamaha'],
   'seguro-automovel': [
-    'porto',
     'azul-seguros',
     'tokio-marine',
     'allianz',
@@ -197,7 +187,6 @@ export const servicePartnerLogos: Record<string, readonly string[]> = {
     'ezze-seguros',
   ],
   'seguro-de-vida': [
-    'porto',
     'allianz',
     'zurich',
     'sul-america',
@@ -206,7 +195,6 @@ export const servicePartnerLogos: Record<string, readonly string[]> = {
     'mag-seguros',
   ],
   'seguro-residencial': [
-    'porto',
     'allianz',
     'sura',
     'hdi-seguros',
@@ -215,12 +203,11 @@ export const servicePartnerLogos: Record<string, readonly string[]> = {
     'mapfre-seguros',
     'youse-seguros',
   ],
-  'seguro-previdencia-privada': ['porto', 'sul-america', 'mag-seguros'],
+  'seguro-previdencia-privada': ['sul-america', 'mag-seguros'],
   'seguro-empresarial': [
     'allianz',
     'azul-seguros',
     'itau-seguros',
-    'porto',
     'zurich',
     'sul-america',
     'hdi-seguros',
@@ -229,8 +216,8 @@ export const servicePartnerLogos: Record<string, readonly string[]> = {
     'mitsui-sumitomo-seguros',
     'ezze-seguros',
   ],
-  'seguro-viagem': ['porto', 'sul-america'],
-  'financiamento-veiculos': ['porto'],
+  'seguro-viagem': ['sul-america'],
+  'financiamento-veiculos': [],
 };
 
 /** Logos for a modality page; empty when the slug has no verified live mapping. */
@@ -302,18 +289,12 @@ export const servicePartnerHighlights: Array<{
 }> = [
   { serviceSlug: 'planos-de-saude-empresarial', partnerId: 'bradesco-saude' },
   { serviceSlug: 'plano-odontologico', partnerId: 'odontoprev' },
-  { serviceSlug: 'seguro-automovel', partnerId: 'porto' },
-  { serviceSlug: 'seguro-de-vida', partnerId: 'porto' },
-  { serviceSlug: 'seguro-residencial', partnerId: 'porto' },
-  { serviceSlug: 'seguro-celular', partnerId: 'porto' },
   { serviceSlug: 'azul-por-assinatura', partnerId: 'azul-seguros' },
-  { serviceSlug: 'porto-servicos', partnerId: 'porto' },
   { serviceSlug: 'seguro-previdencia-privada', partnerId: 'mag-seguros' },
   { serviceSlug: 'seguro-empresarial', partnerId: 'allianz' },
   { serviceSlug: 'seguro-viagem', partnerId: 'zurich' },
   { serviceSlug: 'consorcios', partnerId: 'yamaha' },
   { serviceSlug: 'financiamento-veiculos', partnerId: 'itau-seguros' },
-  { serviceSlug: 'cartao-credito-porto-bank', partnerId: 'porto' },
-  { serviceSlug: 'conta-digital-porto-bank', partnerId: 'porto' },
-  { serviceSlug: 'equipamentos-portateis', partnerId: 'porto' },
+  { serviceSlug: 'cartao-credito-porto-bank', partnerId: 'porto-bank' },
+  { serviceSlug: 'conta-digital-porto-bank', partnerId: 'porto-bank' },
 ];

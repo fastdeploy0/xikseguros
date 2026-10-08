@@ -44,7 +44,6 @@ const BATCH = [
   'youse-seguros.webp',
   'aurora-saude.webp',
   'hapvida-plano-saude.webp',
-  'porto-seguro-saude.webp',
   'porto-seguro-odontologico.webp',
   'select-planos-saude.webp',
   'usi-saude.webp',
