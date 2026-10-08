@@ -85,7 +85,7 @@ export const mainNav: NavItem[] = [
 ];
 
 /** Primary conversion destination, reused by header, footer and mobile CTA. */
-export const primaryCta = { label: 'Faça sua cotação', to: '/faca-sua-cotacao' } as const;
+export const primaryCta = { label: 'Faça sua cotação', to: '/#cotacao-rapida' } as const;
 
 /**
  * Legacy URLs that must not break. The flat product URLs also resolved on the

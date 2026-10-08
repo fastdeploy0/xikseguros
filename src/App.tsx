@@ -11,7 +11,6 @@ const BlogPage = lazy(() => import('@/pages/BlogPage'));
 const BlogPostPage = lazy(() => import('@/pages/BlogPostPage'));
 const CategoryPage = lazy(() => import('@/pages/CategoryPage'));
 const ServicePage = lazy(() => import('@/pages/ServicePage'));
-const QuotePage = lazy(() => import('@/pages/QuotePage'));
 const ContactPage = lazy(() => import('@/pages/ContactPage'));
 const PrivacyPage = lazy(() => import('@/pages/PrivacyPage'));
 const NotFoundPage = lazy(() => import('@/pages/NotFoundPage'));
@@ -101,11 +100,7 @@ export default function App() {
 
         <Route
           path="faca-sua-cotacao"
-          element={
-            <Suspense fallback={<RouteFallback />}>
-              <QuotePage />
-            </Suspense>
-          }
+          element={<Navigate to="/#cotacao-rapida" replace />}
         />
         <Route
           path="fale-conosco"

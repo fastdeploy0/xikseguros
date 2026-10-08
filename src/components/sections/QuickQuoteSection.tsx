@@ -22,6 +22,7 @@ export function QuickQuoteSection() {
   return (
     <Section
       id="cotacao-rapida"
+      tabIndex={-1}
       tone="surface"
       edgeTop="gold-rule"
       edgeBottom="fade-to-sunken"

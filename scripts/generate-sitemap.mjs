@@ -35,7 +35,6 @@ const routes = [
   ...entries.map((route) => ({ path: route, priority: '0.8' })),
   { path: '/blog', priority: '0.8' },
   ...blogEntries.map((route) => ({ path: route, priority: '0.7' })),
-  { path: '/faca-sua-cotacao', priority: '0.9' },
   { path: '/fale-conosco', priority: '0.8' },
   { path: '/politica-de-privacidade', priority: '0.3' },
 ];

@@ -49,6 +49,7 @@ const EDGE_BOTTOM: Record<SectionEdge, string | false> = {
 
 type SectionProps = {
   id?: string;
+  tabIndex?: number;
   tone?: SectionTone;
   /** Tighter vertical rhythm for supporting sections. */
   tight?: boolean;
