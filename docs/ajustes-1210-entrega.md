@@ -110,6 +110,7 @@ Implementados os três blocos aprovados do canvas do Fable (`design-systems/xiks
 - Órbita (`OrbitSection.tsx`, nova, e `HomePage.tsx`): a antiga dobra do hero virou uma seção logo abaixo dele, com os medalhões ao centro e quatro cards nos cantos (empilhados abaixo de `lg`). Em `HeroMedallions.tsx`, o logo deixou de ter `priority` (está abaixo da dobra) e a entrada dos medalhões passou de `animate` para `whileInView`. Com movimento reduzido não há animação de entrada.
 - Destaque (`QuickQuoteSection.tsx` e `ConsortiumSimulationModal.tsx`): faixa de consórcio acima dos nove cards, sangrando até a borda esquerda, com uma linha por bem e o botão Simular consórcio. A linha abre o modal já com o bem escolhido; o botão abre sem pré-seleção. O modal ganhou a prop `asset` e `reset` com `keepFieldsRef`, para o foco inicial no Nome continuar funcionando. O modal passa a ser público, como previsto na etapa 1.
 - Ordem da Home: Hero, órbita, parceiros, Cotar Agora e o restante como antes.
+- Ajuste posterior: o destaque de consórcio saiu do Cotar Agora e virou a seção própria `#consorcio` (`ConsortiumSection.tsx`), antes do Cotar Agora; a ordem da Home passa a ser Hero, órbita, parceiros, consórcio, Cotar Agora e o restante, e `#cotacao-rapida` continua no cabeçalho do Cotar Agora.
 
 ### Desvios do Fable e motivo
 

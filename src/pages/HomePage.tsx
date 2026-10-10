@@ -5,6 +5,7 @@ import { Seo } from '@/components/Seo';
 import { Hero } from '@/components/sections/Hero';
 import { OrbitSection } from '@/components/sections/OrbitSection';
 import { PartnersSection } from '@/components/sections/PartnersSection';
+import { ConsortiumSection } from '@/components/sections/ConsortiumSection';
 import { QuickQuoteSection } from '@/components/sections/QuickQuoteSection';
 import { ConsortiumPricingSection } from '@/components/sections/ConsortiumPricingSection';
 import { SolutionsSection } from '@/components/sections/SolutionsSection';
@@ -27,6 +28,7 @@ export default function HomePage() {
       <Hero />
       <OrbitSection />
       <PartnersSection />
+      <ConsortiumSection />
       <QuickQuoteSection />
       <ConsortiumPricingSection />
       <SolutionsSection />
