@@ -120,7 +120,7 @@ export function OrbitSection() {
             <HeroMedallions pointerX={springX} pointerY={springY} />
           </div>
 
-          <ul className="mt-12 grid gap-3 sm:grid-cols-2 lg:pointer-events-none lg:absolute lg:inset-0 lg:mt-0 lg:grid-cols-[15rem_15rem] lg:content-between lg:justify-between xl:grid-cols-[16.5rem_16.5rem]">
+          <ul className="mt-12 grid gap-3 sm:grid-cols-2 lg:pointer-events-none lg:absolute lg:inset-0 lg:mt-0 lg:grid-cols-[13.5rem_13.5rem] lg:content-between lg:justify-between xl:grid-cols-[16.5rem_16.5rem]">
             {CARDS.map((card, index) => (
               <motion.li
                 key={card.title}
