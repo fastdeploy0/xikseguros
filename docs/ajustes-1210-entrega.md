@@ -111,6 +111,8 @@ Implementados os três blocos aprovados do canvas do Fable (`design-systems/xiks
 - Destaque (`QuickQuoteSection.tsx` e `ConsortiumSimulationModal.tsx`): faixa de consórcio acima dos nove cards, sangrando até a borda esquerda, com uma linha por bem e o botão Simular consórcio. A linha abre o modal já com o bem escolhido; o botão abre sem pré-seleção. O modal ganhou a prop `asset` e `reset` com `keepFieldsRef`, para o foco inicial no Nome continuar funcionando. O modal passa a ser público, como previsto na etapa 1.
 - Ordem da Home: Hero, órbita, parceiros, Cotar Agora e o restante como antes.
 - Ajuste posterior: o destaque de consórcio saiu do Cotar Agora e virou a seção própria `#consorcio` (`ConsortiumSection.tsx`), antes do Cotar Agora; a ordem da Home passa a ser Hero, órbita, parceiros, consórcio, Cotar Agora e o restante, e `#cotacao-rapida` continua no cabeçalho do Cotar Agora.
+- Transição Parceiros e Consórcio (`ConsortiumSection.tsx`): a seção Consórcio perdeu o padding superior (`pt-0!`), então a faixa bege começa logo depois da folga inferior de Parceiros, que é a única transição, com uma só linha dourada. Sem WhatsApp o Consórcio não renderiza e nada muda no Cotar Agora.
+- Hero desktop (commit `9dca1ec`, `Hero.tsx`): a foto retrato ocupa um bloco à direita com 60% da largura, mask na borda esquerda e `object-position` 50% 30%; o celular segue igual ao `b96098f`.
 
 ### Desvios do Fable e motivo
 

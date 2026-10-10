@@ -30,7 +30,7 @@ export function ConsortiumSection() {
     <Section
       id="consorcio"
       tone="surface"
-      className="@container pb-0!"
+      className="@container pt-0! pb-0!"
       edgeTop="gold-rule"
       aria-labelledby="consorcio-titulo"
     >
