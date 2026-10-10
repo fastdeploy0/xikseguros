@@ -198,7 +198,7 @@ export function SolutionsSection() {
             id="solucoes-planos"
             index="01"
             title="Planos de Saúde"
-            lead="Quatro modalidades publicadas pela Xik: cada cartão leva à página com o texto da corretora e o formulário de cotação."
+            lead={`${healthPlans.length} modalidades publicadas pela Xik: cada cartão leva à página com o texto da corretora e o formulário de cotação.`}
             isActive={activeGroup === 'solucoes-planos'}
             reduced={Boolean(reduced)}
             showEyebrow={false}

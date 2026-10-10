@@ -71,7 +71,7 @@ Todo conteúdo comercial vem de `src/data/` e foi recuperado do site oficial:
 | Arquivo | Conteúdo |
 | --- | --- |
 | `company.ts` | história, missão, visão, valores, endereço, telefones, redes sociais |
-| `services.ts` | 12 modalidades, com slug original e texto descritivo publicado |
+| `services.ts` | 16 modalidades, com slug original e texto descritivo publicado |
 | `partners.ts` | seguradoras e operadoras listadas nos formulários da Xik |
 | `navigation.ts` | menu e mapa de redirects das URLs legadas |
 | `faq.ts` | perguntas compostas **apenas** a partir de fatos já publicados |
