@@ -8,6 +8,7 @@ import { ArrowUpRight } from 'lucide-react';
 import { motion, useReducedMotion } from 'motion/react';
 import { resolveQuickQuotes, type QuickQuoteItem, type QuickQuoteSlug } from '@/data/quick-quotes';
 import { cn } from '@/lib/cn';
+import { hasWhatsapp } from '@/lib/runtime-config';
 import { Section } from '@/components/ui/Section';
 import { Reveal } from '@/components/ui/Reveal';
 import { SectionHeading } from './SectionHeading';
@@ -22,12 +23,16 @@ export function QuickQuoteSection() {
 
   if (items.length === 0) return null;
 
+  // Sem WhatsApp a seção Consórcio some: o Cotar Agora assume a linha dourada e o respiro padrão.
+  const withConsortium = hasWhatsapp();
+
   return (
     <Section
       id="cotacao-rapida"
       tabIndex={-1}
       tone="surface"
-      className="pt-(--spacing-section-tight)!"
+      className={withConsortium ? 'pt-(--spacing-section-tight)!' : undefined}
+      edgeTop={withConsortium ? undefined : 'gold-rule'}
       edgeBottom="fade-to-sunken"
       aria-labelledby="cotacao-rapida-titulo"
     >
