@@ -136,7 +136,7 @@ export function HeroMedallions({ pointerX, pointerY }: HeroMedallionsProps) {
           className="grid size-full place-items-center rounded-full p-[18%] transition-transform duration-(--duration-base) ease-(--ease-out-brand) motion-safe:hover:scale-105"
           aria-label={`${company.name}, página inicial`}
         >
-          <Logo variant="dark" priority className="h-full max-h-14 w-auto sm:max-h-16" />
+          <Logo variant="dark" className="h-full max-h-14 w-auto sm:max-h-16" />
         </Link>
       </div>
 
@@ -183,7 +183,8 @@ function MedallionItem({
       <motion.div
         style={{ x: driftX, y: driftY }}
         initial={reduced ? false : { opacity: 0, scale: 0.65 }}
-        animate={{ opacity: 1, scale: 1 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true, amount: 0.5 }}
         transition={
           reduced
             ? { duration: 0 }

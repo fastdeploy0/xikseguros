@@ -3,6 +3,7 @@ import { company } from '@/data/company';
 import { faqSchema, organizationSchema } from '@/lib/seo';
 import { Seo } from '@/components/Seo';
 import { Hero } from '@/components/sections/Hero';
+import { OrbitSection } from '@/components/sections/OrbitSection';
 import { PartnersSection } from '@/components/sections/PartnersSection';
 import { QuickQuoteSection } from '@/components/sections/QuickQuoteSection';
 import { ConsortiumPricingSection } from '@/components/sections/ConsortiumPricingSection';
@@ -24,6 +25,7 @@ export default function HomePage() {
       />
 
       <Hero />
+      <OrbitSection />
       <PartnersSection />
       <QuickQuoteSection />
       <ConsortiumPricingSection />
