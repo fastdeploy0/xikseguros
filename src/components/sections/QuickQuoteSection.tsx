@@ -10,6 +10,7 @@ import { motion, useReducedMotion } from 'motion/react';
 import { consortiumSimulationOptions } from '@/data/consortium-simulation';
 import { resolveQuickQuotes, type QuickQuoteItem, type QuickQuoteSlug } from '@/data/quick-quotes';
 import { cn } from '@/lib/cn';
+import { hasWhatsapp } from '@/lib/runtime-config';
 import { Button } from '@/components/ui/Button';
 import { Section } from '@/components/ui/Section';
 import { Reveal } from '@/components/ui/Reveal';
@@ -24,7 +25,7 @@ export function QuickQuoteSection() {
   const items = resolveQuickQuotes();
   const [activeSlug, setActiveSlug] = useState<QuickQuoteSlug | null>(null);
 
-  if (items.length === 0) return null;
+  if (items.length === 0 && !hasWhatsapp()) return null;
 
   return (
     <Section
@@ -45,22 +46,24 @@ export function QuickQuoteSection() {
 
       <ConsortiumHighlight />
 
-      <ul className="mt-10 grid list-none gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3 lg:gap-5">
-        {items.map((item, index) => (
-          <Reveal key={item.slug} index={index} as="li">
-            <QuickQuoteCard
-              item={item}
-              position={index + 1}
-              isActive={activeSlug === item.slug}
-              isDimmed={activeSlug !== null && activeSlug !== item.slug}
-              onActivate={() => setActiveSlug(item.slug)}
-              onDeactivate={() =>
-                setActiveSlug((current) => (current === item.slug ? null : current))
-              }
-            />
-          </Reveal>
-        ))}
-      </ul>
+      {items.length > 0 && (
+        <ul className="mt-10 grid list-none gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3 lg:gap-5">
+          {items.map((item, index) => (
+            <Reveal key={item.slug} index={index} as="li">
+              <QuickQuoteCard
+                item={item}
+                position={index + 1}
+                isActive={activeSlug === item.slug}
+                isDimmed={activeSlug !== null && activeSlug !== item.slug}
+                onActivate={() => setActiveSlug(item.slug)}
+                onDeactivate={() =>
+                  setActiveSlug((current) => (current === item.slug ? null : current))
+                }
+              />
+            </Reveal>
+          ))}
+        </ul>
+      )}
 
     </Section>
   );
@@ -79,6 +82,8 @@ function ConsortiumHighlight() {
     event.currentTarget.focus();
     setSimulation({ asset });
   };
+
+  if (!hasWhatsapp()) return null;
 
   return (
     <>
@@ -102,8 +107,8 @@ function ConsortiumHighlight() {
           <path d="M200 10 350 150 200 290" />
         </svg>
 
-        <div className="relative font-mono text-[0.6875rem] leading-[normal] font-medium tracking-[0.08em] text-brand-secondary-700 lg:text-xs">
-          DESTAQUE
+        <div className="relative font-mono text-[0.6875rem] leading-[normal] font-medium tracking-[0.08em] text-brand-secondary-700 uppercase lg:text-xs">
+          Destaque
         </div>
         <h3 className="relative text-[3rem] leading-[0.98] font-extrabold tracking-[-0.04em] text-text lg:text-[5rem]">
           <span className="block">Consórcio</span> Xik
