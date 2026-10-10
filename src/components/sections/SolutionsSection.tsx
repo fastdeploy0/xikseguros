@@ -221,7 +221,7 @@ export function SolutionsSection() {
             index="02"
             eyebrow="Seguros, consórcios e financiamentos"
             title="Do automóvel à previdência, incluindo consórcios e financiamentos"
-            lead="Oito modalidades em lista contínua, com a mesma lógica de página própria e cotação, em leitura mais densa."
+            lead={`${insurances.length} modalidades${INSURANCE_LAYOUT === 'list' ? ' em lista contínua' : ''}, com a mesma lógica de página própria e cotação, em leitura mais densa.`}
             isActive={activeGroup === 'solucoes-seguros'}
             reduced={Boolean(reduced)}
           >
