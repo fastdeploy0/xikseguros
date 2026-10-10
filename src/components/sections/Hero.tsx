@@ -8,7 +8,8 @@ import { Button } from '@/components/ui/Button';
 import { Eyebrow } from '@/components/ui/Eyebrow';
 
 /**
- * Immersive hero: the office photo fills the fold and fades into navy, copy
+ * Immersive hero: on mobile the office photo fills the fold; from md it is a
+ * right-hand block (60% wide) whose left edge is masked into the navy. Copy
  * sits on the lower third. The photo is the LCP, so it loads eagerly with a
  * width-based srcset capped at the 941px source (never upscaled).
  */
@@ -31,14 +32,14 @@ export function Hero() {
       <img
         src={officeInterior}
         srcSet={`${officeInterior480} 480w, ${officeInterior720} 720w, ${officeInterior} 941w`}
-        sizes="100vw"
+        sizes="(min-width: 768px) 60vw, 100vw"
         alt=""
         width={941}
         height={1672}
         loading="eager"
         fetchPriority="high"
         decoding="async"
-        className="absolute inset-0 size-full object-cover object-[50%_30%] md:object-[50%_40%]"
+        className="absolute inset-0 size-full object-cover object-[50%_30%] md:left-auto md:w-3/5 md:object-[50%_30%] md:mask-l-from-65%"
       />
 
       <div
