@@ -41,7 +41,7 @@ export function SolutionPillars() {
 
   if (sideBySide) {
     return (
-      <div className="grid items-start gap-6 md:grid-cols-2">
+      <div className="grid items-start gap-6 md:grid-cols-2 lg:max-xl:grid-cols-1">
         {PILLARS.map((pillar) => (
           <section key={pillar.id} aria-labelledby={`pilar-${pillar.id}-titulo`}>
             <h4
