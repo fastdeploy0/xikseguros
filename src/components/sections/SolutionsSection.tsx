@@ -8,6 +8,10 @@ import { Reveal } from '@/components/ui/Reveal';
 import { Button } from '@/components/ui/Button';
 import { SectionHeading } from './SectionHeading';
 import { SolutionExplorerItem } from './SolutionExplorerItem';
+import { SolutionPillars } from './SolutionPillars';
+
+/** Família 02: 'pillars' (Seguros x Investimentos) ou 'list' (lista contínua original). Troque aqui. */
+const INSURANCE_LAYOUT = 'pillars' as 'pillars' | 'list';
 
 const GROUPS = [
   {
@@ -221,17 +225,23 @@ export function SolutionsSection() {
             isActive={activeGroup === 'solucoes-seguros'}
             reduced={Boolean(reduced)}
           >
-            <ul className="flex flex-col gap-3">
-              {insurances.map((service, index) => (
-                <Reveal as="li" key={service.slug} index={index}>
-                  <SolutionExplorerItem
-                    service={service}
-                    position={healthPlans.length + index + 1}
-                    variant="compact"
-                  />
-                </Reveal>
-              ))}
-            </ul>
+            {INSURANCE_LAYOUT === 'pillars' ? (
+              <Reveal>
+                <SolutionPillars />
+              </Reveal>
+            ) : (
+              <ul className="flex flex-col gap-3">
+                {insurances.map((service, index) => (
+                  <Reveal as="li" key={service.slug} index={index}>
+                    <SolutionExplorerItem
+                      service={service}
+                      position={healthPlans.length + index + 1}
+                      variant="compact"
+                    />
+                  </Reveal>
+                ))}
+              </ul>
+            )}
           </SolutionFamily>
         </div>
       </div>
