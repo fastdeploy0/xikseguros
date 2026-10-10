@@ -24,8 +24,10 @@ export function Hero() {
           transition: { duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] as const },
         };
 
+  // Celular: no máximo 700px e nunca mais alto que a tela menos o header sticky (77px medidos).
+  // svh, não dvh, para a altura não mudar ao rolar.
   return (
-    <section className="on-invert relative isolate h-175 overflow-hidden bg-brand-primary-900 text-text-invert md:h-205">
+    <section className="on-invert relative isolate h-[min(700px,calc(100svh-77px))] overflow-hidden bg-brand-primary-900 text-text-invert md:h-205">
       <img
         src={officeInterior}
         srcSet={`${officeInterior480} 480w, ${officeInterior720} 720w, ${officeInterior} 941w`}

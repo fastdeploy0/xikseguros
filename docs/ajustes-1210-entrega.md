@@ -128,6 +128,7 @@ Implementados os três blocos aprovados do canvas do Fable (`design-systems/xiks
 | Coluna de bens do destaque com 25 rem em `lg` e 30 rem em `xl` (Fable: 480 px fixos) | [PENDENTE DE VALIDAÇÃO]: motivo não registrado pelo implementador |
 | Sangrado do destaque feito com `@container` na seção e `cqw` | Chegar à borda da janela sem `overflow-x` na página |
 | Linha de bem sem o marcador "Selecionado" | Decisão do usuário: nenhuma linha começa selecionada |
+| Hero no celular com `h-[min(700px,calc(100svh-77px))]`, em vez de 700 px fixos (77 px é o header sticky medido) | Com 700 px fixos os botões ficavam abaixo da dobra em 360x640, 375x667 e 390x664; em 390x844 continua 700 px e o desktop não muda |
 | Movimento: `motion` já usada no projeto; entradas desligadas com `prefers-reduced-motion` | Decisão do usuário: sem dependência nova |
 
 ### Contraste medido
