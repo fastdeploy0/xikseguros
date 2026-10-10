@@ -12,16 +12,18 @@ import { inputClass } from '@/lib/field-styles';
 import { Button } from '@/components/ui/Button';
 import { Field } from '@/components/ui/Field';
 
-type Props = { open: boolean; onClose: () => void };
+type Props = { open: boolean; onClose: () => void; /** Tipo de bem pré-selecionado ao abrir. */ asset?: string };
 
-/** Montar junto ao futuro hero e controlar `open` pelo botão de simulação. */
-export function ConsortiumSimulationModal({ open, onClose }: Props) {
+const EMPTY: ConsortiumSimulationValues = { name: '', asset: '', credit: '', monthly: '', bid: '' };
+
+/** Montado no destaque de consórcio do Cotar Agora; `open` vem do botão de simulação. */
+export function ConsortiumSimulationModal({ open, onClose, asset }: Props) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const id = useId();
   const titleId = `${id}-title`;
   const { register, handleSubmit, reset, setFocus, formState: { errors } } =
     useForm<ConsortiumSimulationValues>({
-      defaultValues: { name: '', asset: '', credit: '', monthly: '', bid: '' },
+      defaultValues: EMPTY,
     });
 
   useScrollLock(open);
@@ -30,13 +32,15 @@ export function ConsortiumSimulationModal({ open, onClose }: Props) {
     if (!open) return;
     const dialog = dialogRef.current;
     const trigger = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    // keepFieldsRef: sem ele o reset descarta as refs e o setFocus abaixo não acha o Nome.
+    reset({ ...EMPTY, asset: asset ?? '' }, { keepFieldsRef: true });
     dialog?.showModal();
     setFocus('name');
     return () => {
       dialog?.close();
       trigger?.focus({ preventScroll: true });
     };
-  }, [open, setFocus]);
+  }, [open, asset, reset, setFocus]);
 
   const close = () => {
     dialogRef.current?.close();
