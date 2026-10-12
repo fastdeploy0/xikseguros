@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { MouseEvent as ReactMouseEvent } from 'react';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Car, House, Truck, Wrench } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import { consortiumSimulationOptions } from '@/data/consortium-simulation';
 import { cn } from '@/lib/cn';
 import { hasWhatsapp } from '@/lib/runtime-config';
@@ -8,6 +9,16 @@ import { Button } from '@/components/ui/Button';
 import { Section } from '@/components/ui/Section';
 import { Reveal } from '@/components/ui/Reveal';
 import { ConsortiumSimulationModal } from './ConsortiumSimulationModal';
+
+type Asset = (typeof consortiumSimulationOptions.asset)[number];
+
+// Decorative icon per asset; the data file keeps only the labels.
+const assetIcons: Record<Asset, LucideIcon> = {
+  Imóvel: House,
+  Automóvel: Car,
+  'Veículo pesado': Truck,
+  'Serviços ou outro': Wrench,
+};
 
 /**
  * Destaque de consórcio (direção 1f): faixa rebaixada que sangra até a borda
@@ -38,8 +49,7 @@ export function ConsortiumSection() {
         className={cn(
           'relative flex flex-col gap-4 overflow-hidden rounded-r-lg border border-l-0 bg-surface-sunken',
           'ml-[calc(50%-50cqw)] pt-7 pr-5 pb-6 pl-[calc(50cqw-50%)]',
-          'lg:mr-[calc(50%-50cqw)] lg:grid lg:grid-cols-[minmax(0,1fr)_25rem] lg:gap-x-12 lg:gap-y-[1.375rem] lg:rounded-r-xl lg:py-12 lg:pr-12',
-          'xl:grid-cols-[minmax(0,1fr)_30rem]'
+          'lg:mr-[calc(50%-50cqw)] lg:grid lg:grid-cols-[minmax(0,1fr)_30rem] lg:gap-x-12 lg:gap-y-[1.375rem] lg:rounded-r-xl lg:py-12 lg:pr-12'
         )}
       >
         <svg
@@ -77,7 +87,9 @@ export function ConsortiumSection() {
           aria-label="Tipo de bem"
           className="relative border-t border-brand-secondary lg:col-start-2 lg:row-span-4 lg:row-start-1 lg:self-start"
         >
-          {consortiumSimulationOptions.asset.map((asset) => (
+          {consortiumSimulationOptions.asset.map((asset) => {
+            const Icon = assetIcons[asset];
+            return (
             <button
               key={asset}
               type="button"
@@ -85,13 +97,17 @@ export function ConsortiumSection() {
               onClick={(event) => openSimulation(event, asset)}
               className="flex min-h-14 w-full items-center justify-between gap-4 border-b px-3.5 text-left text-[1.0625rem] font-semibold text-text transition-colors duration-(--duration-base) hover:bg-surface lg:min-h-[4.25rem] lg:px-5 lg:text-[1.375rem]"
             >
-              <span>{asset}</span>
+              <span className="flex min-w-0 items-center gap-4">
+                <Icon aria-hidden="true" className="size-5 shrink-0 text-brand-secondary-700 lg:size-6" />
+                {asset}
+              </span>
               <span className="inline-flex shrink-0 items-center gap-2 text-[0.8125rem] font-semibold lg:text-sm">
                 Simular
                 <ArrowRight aria-hidden="true" className="hidden size-4 lg:block" />
               </span>
             </button>
-          ))}
+            );
+          })}
         </div>
 
         <Button
