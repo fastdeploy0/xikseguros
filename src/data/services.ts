@@ -182,6 +182,18 @@ export const services: Service[] = [
     legacyPaths: ['/seguro-celular'],
   },
   {
+    slug: 'equipamentos-portateis',
+    category: 'seguros',
+    label: 'Equipamentos portáteis',
+    title: 'Equipamentos Portáteis',
+    summary:
+      'Proteção para equipamentos portáteis com intermediação da XIK SEGUROS e cotação online da parceira Porto.',
+    metaDescription:
+      'Equipamentos portáteis com cotação online intermediada pela XIK SEGUROS.',
+    icon: TabletSmartphone,
+    legacyPaths: ['/equipamentos-portateis'],
+  },
+  {
     slug: 'azul-por-assinatura',
     category: 'seguros',
     label: 'Azul por Assinatura',
@@ -228,18 +240,6 @@ export const services: Service[] = [
       'Conta digital Porto Bank intermediada pela XIK SEGUROS.',
     icon: Wallet,
     legacyPaths: ['/conta-digital-porto-bank'],
-  },
-  {
-    slug: 'equipamentos-portateis',
-    category: 'seguros',
-    label: 'Equipamentos portáteis',
-    title: 'Equipamentos Portáteis',
-    summary:
-      'Proteção para equipamentos portáteis com intermediação da XIK SEGUROS e cotação online da parceira Porto.',
-    metaDescription:
-      'Equipamentos portáteis com cotação online intermediada pela XIK SEGUROS.',
-    icon: TabletSmartphone,
-    legacyPaths: ['/equipamentos-portateis'],
   },
 ];
 

@@ -26,7 +26,6 @@ export const INVESTMENT_SLUGS = [
   'financiamento-veiculos',
   'cartao-credito-porto-bank',
   'conta-digital-porto-bank',
-  'equipamentos-portateis',
 ] as const;
 
 const investmentSlugSet = new Set<string>(INVESTMENT_SLUGS);
