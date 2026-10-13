@@ -1,318 +1,131 @@
-import { useState, type ReactNode } from 'react';
-import { motion, useReducedMotion } from 'motion/react';
-import { healthPlans, insurances } from '@/data/services';
-import { useActiveSection } from '@/hooks/useActiveSection';
-import { cn } from '@/lib/cn';
+import { Link } from 'react-router-dom';
+import { ArrowUpRight } from 'lucide-react';
+import { findService, healthPlans, servicePath } from '@/data/services';
 import { Section } from '@/components/ui/Section';
 import { Reveal } from '@/components/ui/Reveal';
-import { Button } from '@/components/ui/Button';
-import { SectionHeading } from './SectionHeading';
-import { SolutionExplorerItem } from './SolutionExplorerItem';
-import { SolutionPillars } from './SolutionPillars';
 
-/** Família 02: 'pillars' (Seguros x Investimentos) ou 'list' (lista contínua original). Troque aqui. */
-const INSURANCE_LAYOUT = 'pillars' as 'pillars' | 'list';
+const travel = findService('seguros', 'seguro-viagem');
+const pension = findService('seguros', 'seguro-previdencia-privada');
 
-const GROUPS = [
-  {
-    id: 'solucoes-planos',
-    index: '01',
-    label: 'Planos de saúde',
-    count: healthPlans.length,
-    /** Brief cue from the published health modalities: not a new claim. */
-    blurb:
-      'Empresariais e odontológicos. Cotação junto às operadoras e administradoras parceiras da Xik.',
-  },
-  {
-    id: 'solucoes-seguros',
-    index: '02',
-    label: 'Seguros, consórcios e financiamentos',
-    count: insurances.length,
-    blurb:
-      'Seguros, serviços e produtos financeiros intermediados pela Xik, com cotação nas parceiras.',
-  },
-] as const;
+const GOLD_GRADIENT =
+  'bg-linear-to-r from-brand-secondary-300 via-brand-secondary to-brand-secondary-600';
 
-type GroupId = (typeof GROUPS)[number]['id'];
-
-const GROUP_IDS: readonly GroupId[] = GROUPS.map((group) => group.id);
+const CLOSING_LINK =
+  '-my-3 inline-block px-1 py-3 font-semibold text-brand-secondary-300 underline underline-offset-[3px]';
 
 /**
- * Editorial solution explorer: sticky family rail with hover/click blurbs,
- * scroll-linked active state, and progressive reveals into each modality.
+ * Home "O que a Xik intermedia": the two health plans face each other on navy.
+ * The panel under hover, focus or touch turns lighter navy, gets a gold top
+ * rule and a gold label, and grows on desktop. Nothing is hidden at rest.
  */
 export function SolutionsSection() {
-  const activeGroup = useActiveSection(GROUP_IDS);
-  const reduced = useReducedMotion();
-  /** Mobile peek: which rail item has its blurb open after a tap (until scroll catches up). */
-  const [peekedId, setPeekedId] = useState<GroupId | null>(null);
-  /** Desktop: which item is hovered (independent of scroll-active). */
-  const [hoveredId, setHoveredId] = useState<GroupId | null>(null);
-  /** Tracks the active family last seen so a scroll change can drop a stale peek. */
-  const [peekBaseline, setPeekBaseline] = useState(activeGroup);
-
-  if (peekBaseline !== activeGroup) {
-    setPeekBaseline(activeGroup);
-    setPeekedId(null);
-  }
-
   return (
     <Section
       id="solucoes"
-      tone="sunken"
-      edgeTop="gold-rule"
+      tone="invert"
+      tight
       aria-labelledby="solucoes-titulo"
-    >
-      <SectionHeading
-        id="solucoes-titulo"
-        eyebrow="O que a Xik intermedia"
-        title="Planos de saúde e seguros escolhidos com critério, não por catálogo"
-        description="Cada modalidade tem uma página própria com o que a Xik publica sobre ela e um formulário para receber valores e coberturas direto das operadoras e seguradoras."
-        align="between"
-        className="max-lg:gap-8"
-        actions={
-          <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
-            <Button to="/planos" variant="ghost" withArrow className="w-full sm:w-auto">
-              Planos de saúde
-            </Button>
-            <Button to="/seguros" variant="ghost" withArrow className="w-full sm:w-auto">
-              Seguros
-            </Button>
-          </div>
-        }
-      />
-
-      <div className="relative z-[1] mt-12 lg:mt-16 lg:grid lg:grid-cols-[minmax(15rem,19rem)_minmax(0,1fr)] lg:items-start lg:gap-12 xl:gap-16">
-        <nav
-          aria-label="Famílias de soluções"
-          className={cn(
-            'z-20 -mx-[var(--spacing-gutter)] mb-8 border-y border-border bg-surface/95 px-[var(--spacing-gutter)] shadow-soft backdrop-blur-md',
-            'sticky top-[4.25rem]',
-            'lg:top-28 lg:mx-0 lg:mb-0 lg:self-start lg:rounded-xl lg:border lg:border-border lg:bg-surface lg:px-4 lg:py-5 lg:shadow-soft lg:backdrop-blur-none'
-          )}
-        >
-          <p className="mb-3 hidden text-[0.625rem] font-bold tracking-[0.22em] text-text-subtle uppercase lg:block">
-            Navegue pelas famílias
-          </p>
-          <ul className="flex gap-2 overflow-x-auto py-3 [-ms-overflow-style:none] [scrollbar-width:none] lg:flex-col lg:gap-1 lg:overflow-visible lg:py-0 [&::-webkit-scrollbar]:hidden">
-            {GROUPS.map((group) => {
-              const isActive = activeGroup === group.id;
-              const isHovered = hoveredId === group.id;
-              // While a tap-peek is ahead of the scroll observer, prefer the peeked
-              // family so two blurbs never open at once. Hover always wins on desktop.
-              const blurbId =
-                hoveredId ??
-                (peekedId !== null && peekedId !== activeGroup ? peekedId : activeGroup);
-              const showBlurb = group.id === blurbId;
-
-              return (
-                <li key={group.id} className="shrink-0 lg:w-full">
-                  <a
-                    href={`#${group.id}`}
-                    aria-current={isActive ? 'true' : undefined}
-                    aria-expanded={showBlurb}
-                    aria-describedby={showBlurb ? `${group.id}-blurb` : undefined}
-                    onClick={() => setPeekedId(group.id)}
-                    onMouseEnter={() => setHoveredId(group.id)}
-                    onMouseLeave={() => setHoveredId(null)}
-                    onFocus={() => setHoveredId(group.id)}
-                    onBlur={() => setHoveredId(null)}
-                    className={cn(
-                      'group/nav relative flex min-h-11 flex-col rounded-md px-3.5 py-3 transition-[background-color,color,box-shadow,border-color] duration-(--duration-base) ease-(--ease-out-brand)',
-                      'lg:border-l-2 lg:pl-4',
-                      isActive
-                        ? 'bg-brand-primary text-text-invert shadow-soft lg:border-brand-secondary lg:bg-transparent lg:text-brand-primary lg:shadow-none'
-                        : 'text-text-muted hover:bg-surface-sunken/70 hover:text-brand-primary lg:border-transparent lg:hover:border-border-strong lg:hover:bg-transparent'
-                    )}
-                  >
-                    <span className="flex items-start gap-3">
-                      <span
-                        aria-hidden="true"
-                        className={cn(
-                          'mt-0.5 font-mono text-[0.6875rem] tracking-widest tabular-nums transition-colors duration-(--duration-fast)',
-                          isActive
-                            ? 'text-brand-secondary lg:text-brand-secondary-700'
-                            : isHovered
-                              ? 'text-brand-secondary-700'
-                              : 'text-text-subtle group-hover/nav:text-brand-secondary-700'
-                        )}
-                      >
-                        {group.index}
-                      </span>
-
-                      <span className="flex min-w-0 flex-1 flex-col gap-0.5">
-                        <span
-                          className={cn(
-                            'text-sm leading-snug font-semibold text-pretty transition-colors duration-(--duration-fast) lg:text-[0.9375rem]',
-                            isActive && 'font-bold text-text-invert lg:text-brand-primary'
-                          )}
-                        >
-                          {group.label}
-                        </span>
-                        <span className="hidden text-xs text-text-subtle lg:inline">
-                          {group.count} modalidades
-                        </span>
-                      </span>
-
-                      <span
-                        className={cn(
-                          'mt-0.5 rounded-full px-2 py-0.5 font-mono text-[0.625rem] tabular-nums lg:hidden',
-                          isActive
-                            ? 'bg-white/15 text-brand-secondary'
-                            : 'bg-surface-sunken text-text-subtle'
-                        )}
-                      >
-                        {group.count}
-                      </span>
-                    </span>
-
-                    <span
-                      id={`${group.id}-blurb`}
-                      className={cn(
-                        'grid transition-[grid-template-rows,opacity] duration-(--duration-base) ease-(--ease-out-brand)',
-                        showBlurb ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
-                      )}
-                    >
-                      <span className="overflow-hidden">
-                        <span
-                          className={cn(
-                            'mt-2.5 block max-w-[16rem] border-t pt-2.5 text-xs leading-relaxed lg:max-w-none',
-                            isActive
-                              ? 'border-white/20 text-text-invert-muted lg:border-border/80 lg:text-text-muted'
-                              : 'border-border/80 text-text-muted'
-                          )}
-                        >
-                          {group.blurb}
-                        </span>
-                      </span>
-                    </span>
-                  </a>
-                </li>
-              );
-            })}
-          </ul>
-        </nav>
-
-        <div className="flex flex-col gap-16 lg:gap-24">
-          <SolutionFamily
-            id="solucoes-planos"
-            index="01"
-            title="Planos de Saúde"
-            lead={`${healthPlans.length} modalidades publicadas pela Xik: cada cartão leva à página com o texto da corretora e o formulário de cotação.`}
-            isActive={activeGroup === 'solucoes-planos'}
-            reduced={Boolean(reduced)}
-            showEyebrow={false}
-          >
-            <ul className="grid gap-5 sm:grid-cols-2 sm:gap-6">
-              {healthPlans.map((service, index) => (
-                <Reveal as="li" key={service.slug} index={index} className="flex">
-                  <SolutionExplorerItem
-                    service={service}
-                    position={index + 1}
-                    variant="feature"
-                  />
-                </Reveal>
-              ))}
-            </ul>
-          </SolutionFamily>
-
-          <SolutionFamily
-            id="solucoes-seguros"
-            index="02"
-            eyebrow="Seguros, consórcios e financiamentos"
-            title="Do automóvel à previdência, incluindo consórcios e financiamentos"
-            lead={`${insurances.length} modalidades${INSURANCE_LAYOUT === 'list' ? ' em lista contínua' : ''}, com a mesma lógica de página própria e cotação, em leitura mais densa.`}
-            isActive={activeGroup === 'solucoes-seguros'}
-            reduced={Boolean(reduced)}
-          >
-            {INSURANCE_LAYOUT === 'pillars' ? (
-              <Reveal>
-                <SolutionPillars />
-              </Reveal>
-            ) : (
-              <ul className="flex flex-col gap-3">
-                {insurances.map((service, index) => (
-                  <Reveal as="li" key={service.slug} index={index}>
-                    <SolutionExplorerItem
-                      service={service}
-                      position={healthPlans.length + index + 1}
-                      variant="compact"
-                    />
-                  </Reveal>
-                ))}
-              </ul>
-            )}
-          </SolutionFamily>
-        </div>
-      </div>
-    </Section>
-  );
-}
-
-function SolutionFamily({
-  id,
-  index,
-  eyebrow,
-  title,
-  lead,
-  isActive,
-  reduced,
-  showEyebrow = true,
-  children,
-}: {
-  id: string;
-  index: string;
-  eyebrow?: string;
-  title: string;
-  lead: string;
-  isActive: boolean;
-  reduced: boolean;
-  /** When false, only the index numeral appears above the title (planos block). */
-  showEyebrow?: boolean;
-  children: ReactNode;
-}) {
-  return (
-    <motion.div
-      id={id}
-      className="scroll-mt-40 lg:scroll-mt-32"
-      animate={
-        reduced
-          ? undefined
-          : {
-              opacity: isActive ? 1 : 0.55,
-              y: isActive ? 0 : 6,
-            }
+      backdrop={
+        <>
+          <div aria-hidden="true" className="surface-grid-invert absolute inset-0" />
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-x-0 top-0 h-[420px] bg-[radial-gradient(ellipse_at_50%_0%,color-mix(in_oklab,var(--color-brand-secondary)_18%,transparent),transparent_60%)]"
+          />
+          <div
+            aria-hidden="true"
+            className="absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,var(--color-brand-secondary)_30%,var(--color-brand-secondary)_70%,transparent)]"
+          />
+        </>
       }
-      transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
     >
-      <Reveal as="header" className="mb-7 flex flex-col gap-3 border-b border-border pb-6">
-        <div>
-          <p
-            className={cn(
-              'flex items-center gap-3 font-mono text-[0.6875rem] tracking-widest tabular-nums',
-              showEyebrow
-                ? 'font-bold text-brand-secondary-700 uppercase'
-                : 'text-brand-secondary-700'
-            )}
-          >
-            <span
-              aria-hidden="true"
-              className={cn(
-                'transition-colors duration-(--duration-fast)',
-                isActive ? 'text-brand-secondary-700' : 'text-text-subtle'
-              )}
-            >
-              {index}
-            </span>
-            {showEyebrow && eyebrow ? <span>{eyebrow}</span> : null}
-          </p>
-          <h3 className="mt-3 max-w-xl text-title font-extrabold text-balance">{title}</h3>
-          <p className="measure mt-3 text-sm leading-relaxed text-text-muted sm:text-[0.9375rem]">
-            {lead}
-          </p>
-        </div>
+      <Reveal as="header" className="mb-7 lg:mb-10 xl:mb-11">
+        <p className="flex items-center gap-2.5 font-mono text-[0.625rem] leading-[1.3] font-semibold tracking-[0.16em] text-brand-secondary-300 uppercase lg:gap-3 lg:text-[0.6875rem] lg:leading-none lg:tracking-[0.18em]">
+          <span aria-hidden="true" className="h-px w-[22px] shrink-0 bg-brand-secondary lg:w-7" />
+          O que a Xik intermedia
+        </p>
+        <h2
+          id="solucoes-titulo"
+          className="mt-3.5 text-[clamp(2.375rem,4.2vw,3.75rem)] leading-[1.02] font-extrabold tracking-[-0.03em] text-text-invert lg:mt-4 xl:mt-[18px]"
+        >
+          Planos de Saúde
+        </h2>
       </Reveal>
-      {children}
-    </motion.div>
+
+      <Reveal>
+        {/* Equal rows below lg; on lg the flex row stretches both panels to one height and
+            the summary is sized to the narrow panel so growing never reflows the text. */}
+        <ul className="grid auto-rows-fr gap-3 lg:@container lg:flex lg:gap-4">
+          {healthPlans.map((service, index) => {
+            const Icon = service.icon;
+            return (
+              <li
+                key={service.slug}
+                className="group flex lg:flex-1 lg:transition-[flex-grow] lg:duration-(--duration-slow) lg:ease-(--ease-out-brand) lg:focus-within:grow-[1.35] lg:hover:grow-[1.35] motion-reduce:transition-none"
+              >
+                <Link
+                  to={servicePath(service)}
+                  className="relative flex w-full flex-col gap-5 overflow-hidden rounded-xl border border-white/10 bg-white/[0.03] px-5 pt-[22px] pb-4 text-text-invert transition-[background-color,transform] duration-(--duration-base) ease-(--ease-out-brand) group-focus-within:bg-surface-invert-elevated hover:bg-surface-invert-elevated active:scale-[0.99] active:bg-brand-primary motion-reduce:active:scale-100 lg:gap-8 lg:px-9 lg:pt-9 lg:pb-8"
+                >
+                  <span
+                    aria-hidden="true"
+                    className={`${GOLD_GRADIENT} absolute inset-x-0 top-0 h-[3px] origin-left scale-x-0 transition-transform duration-(--duration-slow) ease-(--ease-out-brand) group-focus-within:scale-x-100 group-hover:scale-x-100 group-active:scale-x-100 motion-reduce:transition-none`}
+                  />
+
+                  <span className="flex items-start justify-between">
+                    <span className="inline-flex size-11 items-center justify-center rounded-md border border-brand-secondary/50 text-brand-secondary-300 lg:size-12">
+                      <Icon aria-hidden="true" className="size-[22px] lg:size-6" strokeWidth={1.7} />
+                    </span>
+                    <span
+                      aria-hidden="true"
+                      className="font-mono text-base font-semibold tracking-[0.14em] text-brand-secondary-300 tabular-nums lg:text-lg"
+                    >
+                      {String(index + 1).padStart(2, '0')}
+                    </span>
+                  </span>
+
+                  <span className="flex flex-1 flex-col gap-2.5 lg:gap-3">
+                    {/* Bottom padding keeps descenders inside the box the gradient is clipped to. */}
+                    <h3
+                      className={`${GOLD_GRADIENT} bg-clip-text pb-[0.12em] text-[2.25rem] leading-[1.02] font-extrabold tracking-[-0.03em] text-text-invert transition-colors duration-(--duration-base) ease-(--ease-out-brand) group-focus-within:text-transparent group-hover:text-transparent group-active:text-transparent lg:text-[clamp(2.75rem,3.9vw,3.5rem)]`}
+                    >
+                      {service.label}
+                    </h3>
+                    <span className="-mt-[0.12em] text-base leading-[1.3] font-semibold text-text-invert lg:text-[1.0625rem]">
+                      {service.title}
+                    </span>
+                    {service.summary ? (
+                      <p className="max-w-[460px] text-[0.9375rem] lg:max-w-[min(460px,calc((100cqw-1rem)/2.35-4.5rem-2px))] leading-[1.55] text-text-invert-muted lg:text-base lg:leading-[1.6]">
+                        {service.summary}
+                      </p>
+                    ) : null}
+                    <span className="mt-auto inline-flex min-h-11 items-center gap-2 text-[0.9375rem] font-semibold text-brand-secondary-300 lg:min-h-0 lg:pt-1.5">
+                      Ver detalhes
+                      <ArrowUpRight aria-hidden="true" className="size-3.5" strokeWidth={1.8} />
+                    </span>
+                  </span>
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      </Reveal>
+
+      {travel && pension ? (
+        <p className="mt-5 text-[0.8125rem] leading-normal text-pretty text-text-invert-muted lg:mt-8 xl:mt-9">
+          A Xik também intermedia:{' '}
+          <Link to={servicePath(travel)} className={CLOSING_LINK}>
+            {travel.label}
+          </Link>{' '}
+          {/* Kept together so "e" never ends a line on its own. */}
+          <span className="whitespace-nowrap">
+            e{' '}
+            <Link to={servicePath(pension)} className={CLOSING_LINK}>
+              {pension.label}
+            </Link>
+          </span>
+        </p>
+      ) : null}
+    </Section>
   );
 }
