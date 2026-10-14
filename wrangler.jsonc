@@ -1,9 +1,17 @@
 // Cloudflare Workers (static assets). Site estático: o build do Vite sai em dist/ e as rotas da SPA caem no index.html.
+// worker.js só existe para o 301 de www para a raiz; o resto vai direto para os assets.
 {
   "name": "xikseguros",
   "compatibility_date": "2026-09-01",
+  "main": "worker.js",
   "assets": {
     "directory": "./dist",
-    "not_found_handling": "single-page-application"
-  }
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application",
+    "run_worker_first": true
+  },
+  "routes": [
+    { "pattern": "xikseguros.com.br", "custom_domain": true },
+    { "pattern": "www.xikseguros.com.br", "custom_domain": true }
+  ]
 }
